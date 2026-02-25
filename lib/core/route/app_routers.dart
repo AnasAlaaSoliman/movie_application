@@ -7,7 +7,7 @@ abstract class AppRouters {
     switch (settings.name) {
       case RouteName.profile_page:
         return MaterialPageRoute(builder: (context) => ProfilePage());
+      default:MaterialPageRoute(builder: (context) => ProfilePage());
     }
-
   }
 }
