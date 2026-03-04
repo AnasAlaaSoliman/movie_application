@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
-import '../core/theme/color_pallete.dart';
-import '../core/theme/image_repository.dart';
 
 class DargedAvatarMenu extends StatelessWidget {
 

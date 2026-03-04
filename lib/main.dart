@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'core/route/app_routers.dart';
-import 'core/route/route_name.dart';
-import 'cubit/movie_cubit.dart';
-
+import 'package:movie2_application/screens/auth_screens/login.dart';
 
 void main()async{
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -12,13 +8,7 @@ void main()async{
   await Future.delayed(const Duration(seconds: 3));
 
   FlutterNativeSplash.remove();
-  runApp(
-      BlocProvider(
-        create: (context) => MovieCubit()..getMovies(),
-        child: const MyApp(),
-      ),
-      );
-
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -28,16 +18,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
-      ),
-      initialRoute: RouteName.onboarding_page,
-      onGenerateRoute: AppRouters.onGenerateRoute,
-
+      home: Login(),
     );
+
   }
+
 }
-
-

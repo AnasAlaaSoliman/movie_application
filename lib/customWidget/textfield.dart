@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../core/theme/color_pallete.dart';
-
 class textfield extends StatefulWidget {
   final String message;
   final bool isPassword;
