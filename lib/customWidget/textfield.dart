@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/core/theme/color_pallete.dart';
 
 class textfield extends StatefulWidget {
   final String message;

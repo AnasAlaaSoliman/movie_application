@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+
+import '../../customWidget/custom_onboarding_widget.dart';
+import '../../customWidget/elevated_button__custom_widget.dart';
+import '../../models/onboarding_data_model.dart';
+import '../login/login_screen.dart';
 import 'package:movie_app/customWidget/custom_onboarding_widget.dart';
 import '../../customWidget/elevated_button__custom_widget.dart';
 import '../../models/onboarding_data_model.dart';

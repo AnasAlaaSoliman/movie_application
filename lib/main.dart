@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:movie2_application/screens/auth_screens/login.dart';
 
 import 'package:movie_app/core/route/app_routers.dart';
 import 'package:movie_app/core/route/route_name.dart';
@@ -25,8 +26,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
+      home: Login(),
       theme: ThemeData(
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: AppRouters.onGenerateRoute,
 
     );
+
   }
+
 }
-
-
