@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bounceable/flutter_bounceable.dart';
-import '../../core/theme/App_assets.dart';
-import '../../core/theme/App_strings.dart';
-import '../../core/theme/color_pallete.dart';
+
+
+import '../core/App_assets.dart';
+import '../core/App_strings.dart';
+import '../core/app_colors.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -14,41 +15,34 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   bool isEnglish = true;
   bool _isObscur = true;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorPallete.black,
-
-      appBar: AppBar(
-        toolbarHeight: 70,
-        iconTheme: IconThemeData(color: ColorPallete.yellow),
-        backgroundColor: Colors.transparent,
-        centerTitle: true,
-        title: Text(
-          "register",
-          style: TextStyle(
-            color: ColorPallete.yellow,
-            fontWeight: FontWeight.w400,
-          ),
-        ),
-      ),
+      backgroundColor: AppColors.black,
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Bounceable(
-              onTap: () {},
+            AppBar(
+              iconTheme: IconThemeData(color: AppColors.yelow),
+              backgroundColor: AppColors.black,
+              title: Center(
+                child: Text(
+                  "register",
+                  style: TextStyle(color: AppColors.yelow),
+                ),
+              ),
+            ),
+            Expanded(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                spacing: 20,
+                spacing: 10,
                 children: [
-                  Image.asset(AppAssets.player3),
-                  CircleAvatar(
-                    radius: 60,
-                    backgroundImage: AssetImage(AppAssets.player1),
+                  Image.asset(AppAssets.player3,
                   ),
+CircleAvatar(radius: 30,
+                backgroundImage:  AssetImage(AppAssets.player1,
+                ),),
                   //SizedBox(height: 10,),
                   Image.asset(AppAssets.player2),
 
@@ -57,61 +51,63 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
             ),
             SizedBox(height: 10),
-            Text("Avatar", style: TextStyle(color: ColorPallete.white)),
-            SizedBox(height: 20),
+            Text("Avatar",
+            style: TextStyle(color: AppColors.wight),),
+            SizedBox(height: 10),
             TextFormField(
-              style: TextStyle(color: ColorPallete.white),
+
+              style: TextStyle(color: AppColors.wight),
               decoration: InputDecoration(
                 isDense: true,
                 contentPadding: EdgeInsets.symmetric(
                   vertical: 4,
-                  horizontal: 10,
+                  horizontal: 10
                 ),
                 filled: true,
-                fillColor: ColorPallete.blueBlack,
+                fillColor: AppColors.blueBlack,
                 hintText: AppStrings.name,
-                hintStyle: TextStyle(color: ColorPallete.white),
-                prefixIcon: Icon(Icons.account_box, color: ColorPallete.white),
+                hintStyle: TextStyle(color: AppColors.wight),
+                prefixIcon: Icon(Icons.account_box, color: AppColors.wight),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide.none,
                 ),
               ),
             ),
-            SizedBox(height: 24),
+            SizedBox(height: 10),
             TextFormField(
-              style: TextStyle(color: ColorPallete.white),
+              style: TextStyle(color: AppColors.wight),
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.symmetric(
-                  vertical: 5,
-                  horizontal: 10,
+                    vertical: 5,
+                    horizontal: 10
                 ),
                 filled: true,
-                fillColor: ColorPallete.blueBlack,
+                fillColor: AppColors.blueBlack,
                 hintText: 'Email',
-                hintStyle: TextStyle(color: ColorPallete.white),
-                prefixIcon: Icon(Icons.email, color: ColorPallete.white),
+                hintStyle: TextStyle(color: AppColors.wight),
+                prefixIcon: Icon(Icons.email, color: AppColors.wight),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide.none,
                 ),
               ),
             ),
-            SizedBox(height: 24),
+            SizedBox(height: 10),
             TextFormField(
               obscureText: _isObscur,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.symmetric(
-                  vertical: 5,
-                  horizontal: 10,
+                    vertical: 5,
+                    horizontal: 10
                 ),
                 filled: true,
-                fillColor: ColorPallete.blueBlack,
+                fillColor: AppColors.blueBlack,
                 hintText: AppStrings.passWard,
-                hintStyle: TextStyle(color: ColorPallete.white),
+                hintStyle: TextStyle(color: AppColors.wight),
 
-                prefixIcon: Icon(Icons.lock_outline, color: ColorPallete.white),
+                prefixIcon: Icon(Icons.lock_outline, color: AppColors.wight),
 
                 suffixIcon: IconButton(
                   icon: Icon(
@@ -129,21 +125,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   borderRadius: BorderRadius.circular(15),
                   borderSide: BorderSide.none,
                 ),
+
               ),
             ),
-            SizedBox(height: 24),
+            SizedBox(height: 10),
             TextFormField(
-              style: TextStyle(color: ColorPallete.white),
+              style: TextStyle(color: AppColors.wight),
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.symmetric(
-                  vertical: 5,
-                  horizontal: 10,
+                    vertical: 5,
+                    horizontal: 10
                 ),
                 filled: true,
-                fillColor: ColorPallete.blueBlack,
+                fillColor: AppColors.blueBlack,
                 hintText: AppStrings.confirmPassword,
-                hintStyle: TextStyle(color: ColorPallete.white),
-                prefixIcon: Icon(Icons.lock_outline, color: ColorPallete.white),
+                hintStyle: TextStyle(color: AppColors.wight),
+                prefixIcon: Icon(Icons.lock_outline, color: AppColors.wight),
                 suffixIcon: IconButton(
                   icon: Icon(
                     _isObscur ? Icons.visibility_off : Icons.visibility,
@@ -154,7 +151,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       _isObscur = !_isObscur;
                     });
                   },
-                  color: ColorPallete.white,
+                  color: AppColors.wight,
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -162,31 +159,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 24),
+            SizedBox(height: 10),
 
             TextFormField(
-              style: TextStyle(color: ColorPallete.white),
+              style: TextStyle(color: AppColors.wight),
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.symmetric(
-                  vertical: 5,
-                  horizontal: 10,
+                    vertical: 5,
+                    horizontal: 10
                 ),
                 filled: true,
-                fillColor: ColorPallete.blueBlack,
+                fillColor: AppColors.blueBlack,
                 hintText: AppStrings.phoneNumber,
-                hintStyle: TextStyle(color: ColorPallete.white),
-                prefixIcon: Icon(Icons.phone, color: ColorPallete.white),
+                hintStyle: TextStyle(color: AppColors.wight),
+                prefixIcon: Icon(Icons.phone, color: AppColors.wight),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide.none,
                 ),
               ),
             ),
-            SizedBox(height: 24),
+            SizedBox(height: 10),
             ElevatedButton(
+
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                backgroundColor: ColorPallete.yellow,
+                backgroundColor: AppColors.yelow,
                 minimumSize: Size(double.infinity, 40),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
@@ -196,7 +194,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: Text(
                 AppStrings.createAccount,
                 style: TextStyle(
-                  color: ColorPallete.black,
+                  color: AppColors.black,
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
@@ -209,22 +207,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Text(
                   AppStrings.alreadyHaveAccount,
                   style: TextStyle(
-                    color: ColorPallete.white,
+                    color: AppColors.wight,
                     fontWeight: FontWeight.w400,
                     fontSize: 19,
                   ),
                 ),
-                Bounceable(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text(
-                    AppStrings.login,
-                    style: TextStyle(
-                      color: ColorPallete.yellow,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 19,
-                    ),
+                Text(
+                  AppStrings.login,
+                  style: TextStyle(
+                    color: AppColors.yelow,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 19,
                   ),
                 ),
               ],
