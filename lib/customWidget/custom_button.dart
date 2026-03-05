@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/core/theme/color_pallete.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
   final Color textColor;
   final Color buttonColor;
+  final IconData? suffix;
+  final VoidCallback? onPressed;
 
   CustomButton({
     required this.text,
     required this.textColor,
     required this.buttonColor,
+    this.suffix,
+    required this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: buttonColor,
         padding: EdgeInsets.symmetric(vertical: 15),
@@ -31,6 +36,10 @@ class CustomButton extends StatelessWidget {
               fontWeight: FontWeight.w400,
             ),
           ),
+
+          SizedBox(width: 10,),
+
+          Icon(suffix,color: ColorPallete.white,),
         ],
       ),
     );

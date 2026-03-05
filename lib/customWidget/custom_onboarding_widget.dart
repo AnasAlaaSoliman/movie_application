@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-
-
-import '../../../models/onboarding_data_model.dart';
-
+import '../models/onboarding_data_model.dart';
 import 'elevated_button__custom_widget.dart';
+
 
 class CustomOnboardingWidget extends StatelessWidget {
   final OnboardingDataModel onboardingDataModel;
