@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/core/theme/image_repository.dart';
-import 'package:movie_app/customWidget/movieCard.dart';
+
 import '../../core/theme/color_pallete.dart';
+import '../../core/theme/image_repository.dart';
+import '../../customWidget/movieCard.dart';
 
 class Explore extends StatelessWidget {
   List<String> categories = [

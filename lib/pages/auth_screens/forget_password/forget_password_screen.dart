@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/utils/firebase_auth_utils.dart';
 import '../../../core/theme/color_pallete.dart';
+import '../../../utils/firebase_auth_utils.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
   const ForgetPasswordScreen({super.key});

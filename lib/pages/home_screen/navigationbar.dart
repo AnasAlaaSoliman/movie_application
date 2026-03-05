@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/core/theme/App_assets.dart';
-import 'package:movie_app/core/theme/color_pallete.dart';
-import 'package:movie_app/pages/Profile/profile.dart';
-import 'package:movie_app/pages/explore/explore.dart';
-import 'package:movie_app/pages/home_screen/home.dart';
-import 'package:movie_app/pages/search/search.dart';
+import 'package:movie2_application/pages/home_screen/Home_tab_screen.dart';import '../../core/theme/App_assets.dart';
+import '../../core/theme/color_pallete.dart';
+
+import '../Profile/profile.dart';
+import '../explore/explore.dart';
+import '../search/search.dart';
 
 class NavigationbarScreen extends StatefulWidget {
   @override
@@ -15,7 +15,7 @@ class _HomeScreenStateScreen extends State<NavigationbarScreen> {
   int current_index = 0;
 
 
-  List screens=[Home(),Search(),Explore(),Profile()];
+  List screens=[HomeTabScreen(),Search(),Explore(),Profile()];
 
   @override
   Widget build(BuildContext context) {

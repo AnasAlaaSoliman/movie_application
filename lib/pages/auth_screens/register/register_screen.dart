@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
-import 'package:movie_app/core/route/route_name.dart';
-import 'package:movie_app/utils/firebase_auth_utils.dart';
+import '../../../core/route/route_name.dart';
 import '../../../core/theme/App_assets.dart';
 import '../../../core/theme/App_strings.dart';
 import '../../../core/theme/color_pallete.dart';
 import '../../../models/user_data_model.dart';
+import '../../../utils/firebase_auth_utils.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});

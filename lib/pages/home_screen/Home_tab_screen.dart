@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie2_application/pages/home_screen/widget_home/home_banner.dart';
+import 'package:movie2_application/pages/home_screen/widget_home/moviesgrid.dart';
+import 'package:movie2_application/pages/home_screen/widget_home/section_title.dart';
 import '../../core/theme/color_pallete.dart';
 import '../../cubit/movie_cubit.dart';
 import '../../cubit/movie_state.dart' hide MovieCubit;
-import '../../widget_home/home_banner.dart';
-import '../../widget_home/moviesgrid.dart';
-import '../../widget_home/section_title.dart';
+
 
 class HomeTabScreen extends StatelessWidget {
   const HomeTabScreen({super.key});

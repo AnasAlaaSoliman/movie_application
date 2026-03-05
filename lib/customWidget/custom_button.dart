@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/core/theme/color_pallete.dart';
+
+import '../core/theme/color_pallete.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;

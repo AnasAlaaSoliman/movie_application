@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movie2_application/widget_home/feature_carousel.dart';
+
+import 'feature_carousel.dart';
 
 class HomeBanner extends StatefulWidget {
   final List movies;

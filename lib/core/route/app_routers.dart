@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/core/route/route_name.dart';
-import 'package:movie_app/pages/Profile/profile.dart';
-import 'package:movie_app/pages/home_screen/navigationbar.dart';
-import 'package:movie_app/screens/auth_screens/forget_password/forget_password_screen.dart';
-import '../../pages/home_screen/home.dart';
+import 'package:movie2_application/core/route/route_name.dart';
+import '../../pages/Profile/profile.dart';
+import '../../pages/auth_screens/forget_password/forget_password_screen.dart';
+import '../../pages/auth_screens/login/login_screen.dart';
+import '../../pages/auth_screens/register/register_screen.dart';
+import '../../pages/home_screen/navigationbar.dart';
 import '../../pages/onboarding/onboarding_screen.dart';
-import '../../screens/auth_screens/login/login_screen.dart';
-import '../../screens/auth_screens/register/register_screen.dart';
 
 abstract class AppRouters {
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
