@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-
-import '../core/App_assets.dart';
-import '../core/App_strings.dart';
-import '../core/app_colors.dart';
+import 'package:movie_app/core/route/route_name.dart';
+import '../../../core/App_assets.dart';
+import '../../../core/App_strings.dart';
+import '../../../core/app_colors.dart';
 import '../register/register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -14,16 +14,17 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool isEnglish = true;
-  bool _isObscur = true;
+  bool _isObscure = true;
+
   @override
   Widget build(BuildContext context) {
-    bool _isObscure = true;
+    //bool _isObscure = true;
     return Scaffold(
       backgroundColor: AppColors.black,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Expanded(
+          child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -64,7 +65,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     hintText: AppStrings.passWard,
                     hintStyle: TextStyle(color: AppColors.wight),
 
-                    prefixIcon: Icon(Icons.lock_outline, color: AppColors.wight),
+                    prefixIcon: Icon(
+                      Icons.lock_outline,
+                      color: AppColors.wight,
+                    ),
 
                     suffixIcon: IconButton(
                       icon: Icon(
@@ -87,12 +91,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(
-                      AppStrings.forgetPassword,
-                      style: TextStyle(
-                        color: AppColors.yelow,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12,
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, RouteName.forget_password);
+                      },
+                      child: Text(
+                        AppStrings.forgetPassword,
+                        style: TextStyle(
+                          color: AppColors.yelow,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                        ),
                       ),
                     ),
                   ],
@@ -100,7 +109,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 SizedBox(height: 10),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(
+                      context,
+                      RouteName.home_page,
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.yelow,
                     minimumSize: Size(double.infinity, 40),
@@ -150,15 +164,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         );
                       },
-style:ElevatedButton.styleFrom(
-  backgroundColor: AppColors.black
-) ,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.black,
+                      ),
 
-                      child: Text(AppStrings.create,
-                      style: TextStyle(
-color: AppColors.wight,
-                        fontSize: 12
-                      ),),
+                      child: Text(
+                        AppStrings.create,
+                        style: TextStyle(color: AppColors.wight, fontSize: 12),
+                      ),
                     ),
                   ],
                 ),
@@ -183,23 +196,21 @@ color: AppColors.wight,
                     ),
                     elevation: 0,
                   ),
-                  child: Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      spacing: 10,
-                      children: [
-                        Image.asset(AppAssets.icon_google),
-                        Text(
-                          AppStrings.loginWithGoogle,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    spacing: 10,
+                    children: [
+                      Image.asset(AppAssets.icon_google),
+                      Text(
+                        AppStrings.loginWithGoogle,
 
-                          style: TextStyle(
-                            color: AppColors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                          ),
+                        style: TextStyle(
+                          color: AppColors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
 

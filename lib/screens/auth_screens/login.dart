@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../core/app_colors.dart';
-import 'forget_password_screen.dart';
+import 'forget_password/forget_password_screen.dart';
 class Login  extends StatelessWidget{
   const Login({super.key});
 

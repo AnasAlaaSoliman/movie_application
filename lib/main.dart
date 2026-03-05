@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      initialRoute: RouteName.profile_page,
+      initialRoute: RouteName.register,
       onGenerateRoute: AppRouters.onGenerateRoute,
 
     );
