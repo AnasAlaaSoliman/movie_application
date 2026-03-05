@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_app/pages/onboarding/widgets/custom_onboarding_widget.dart';
 import 'package:movie_app/pages/onboarding/widgets/elevated_button__custom_widget.dart';
 
+import '../../login/login_screen.dart';
 import '../../models/onboarding_data_model.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -71,13 +72,28 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
   void goNext() {
-    _controller.animateToPage(
-      currentIndex + 1,
-      duration: Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
-    );
 
-  }
+           if (currentIndex == OnboardingDataModel.onboardingList.length - 1) {
+
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => LoginScreen()),);
+
+      }
+           else {
+
+        _controller.animateToPage(
+        currentIndex + 1,
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+        );
+      }
+    }
+
+
+
+
   void goBack()  {
     _controller.animateToPage(
       currentIndex - 1,

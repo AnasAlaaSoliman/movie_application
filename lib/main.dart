@@ -4,8 +4,12 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:movie_app/core/route/app_routers.dart';
 import 'package:movie_app/core/route/route_name.dart';
 
+import 'package:firebase_core/firebase_core.dart';
 void main()async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Future.delayed(const Duration(seconds: 3));
 

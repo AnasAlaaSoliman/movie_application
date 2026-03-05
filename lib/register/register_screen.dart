@@ -1,10 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_app/register/register_screen.dart' as emailController;
 
 
 import '../core/App_assets.dart';
 import '../core/App_strings.dart';
 import '../core/app_colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
+import '../screens/home_screen.dart';
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
@@ -12,14 +16,72 @@ class RegisterScreen extends StatefulWidget {
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
+@override
+void dispose() {
+  emailController.dispose();
+  emailController.dispose();
+  emailController.dispose();
+  emailController.dispose();
+  emailController.dispose();
+  dispose();
+}
 class _RegisterScreenState extends State<RegisterScreen> {
+
+
+
+  Future<void> registerUser() async {
+    bool _isLoading;
+    if (!_formKey.currentState!.validate()) return;
+    if (_passwordController.text != _confirmPasswordController.text) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Passwords don't match")));
+      return;
+    }
+
+    setState(() => _isLoading = true);
+
+    try {
+
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+
+
+      await FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).set({
+        'name': _nameController.text.trim(),
+        'phone': _phoneController.text.trim(),
+        'email': _emailController.text.trim(),
+        'confirm': _phoneController.text.trim(),
+        'password': _emailController.text.trim(),
+      });
+
+
+      Navigator.pushReplacementNamed(context, '/home');
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message ?? "Error")));
+    } finally {
+
+      setState(() => _isLoading = false);
+    }
+  }
+
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
   bool isEnglish = true;
-  bool _isObscur = true;
+  bool _isObscure = true;
+  bool _isObscur= true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.black,
-      body: Padding(
+      body: Form(
+        key:_formKey,
+        child: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
           children: [
@@ -55,6 +117,7 @@ CircleAvatar(radius: 30,
             style: TextStyle(color: AppColors.wight),),
             SizedBox(height: 10),
             TextFormField(
+              controller: _nameController,
 
               style: TextStyle(color: AppColors.wight),
               decoration: InputDecoration(
@@ -76,6 +139,7 @@ CircleAvatar(radius: 30,
             ),
             SizedBox(height: 10),
             TextFormField(
+              controller: _emailController,
               style: TextStyle(color: AppColors.wight),
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.symmetric(
@@ -95,7 +159,8 @@ CircleAvatar(radius: 30,
             ),
             SizedBox(height: 10),
             TextFormField(
-              obscureText: _isObscur,
+              obscureText: _isObscure,
+              controller: _passwordController,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.symmetric(
@@ -111,12 +176,12 @@ CircleAvatar(radius: 30,
 
                 suffixIcon: IconButton(
                   icon: Icon(
-                    _isObscur ? Icons.visibility_off : Icons.visibility,
+                    _isObscure ? Icons.visibility_off : Icons.visibility,
                     color: Colors.white,
                   ),
                   onPressed: () {
                     setState(() {
-                      _isObscur = !_isObscur;
+                       _isObscure = !_isObscure;
                     });
                   },
                 ),
@@ -130,6 +195,7 @@ CircleAvatar(radius: 30,
             ),
             SizedBox(height: 10),
             TextFormField(
+              controller: _confirmPasswordController,
               style: TextStyle(color: AppColors.wight),
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.symmetric(
@@ -162,6 +228,7 @@ CircleAvatar(radius: 30,
             SizedBox(height: 10),
 
             TextFormField(
+              controller: _phoneController,
               style: TextStyle(color: AppColors.wight),
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.symmetric(
@@ -182,7 +249,9 @@ CircleAvatar(radius: 30,
             SizedBox(height: 10),
             ElevatedButton(
 
-              onPressed: () {},
+              onPressed: () {
+                registerUser();
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.yelow,
                 minimumSize: Size(double.infinity, 40),
@@ -204,14 +273,20 @@ CircleAvatar(radius: 30,
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+               InkWell(
+                 onTap: (){
+       Navigator.push(
+      context,MaterialPageRoute(builder: (context)=>const HomeScreen(),
+      ) ,);
+                 },
+                 child: Text(
                   AppStrings.alreadyHaveAccount,
                   style: TextStyle(
                     color: AppColors.wight,
                     fontWeight: FontWeight.w400,
                     fontSize: 19,
                   ),
-                ),
+                ),),
                 Text(
                   AppStrings.login,
                   style: TextStyle(
@@ -263,7 +338,7 @@ CircleAvatar(radius: 30,
             ),
           ],
         ),
-      ),
+      ),),
     );
   }
 }

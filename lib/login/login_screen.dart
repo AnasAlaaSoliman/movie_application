@@ -3,27 +3,63 @@ import 'package:flutter/material.dart';
 import '../core/App_assets.dart';
 import '../core/App_strings.dart';
 import '../core/app_colors.dart';
+import '../pages/profile_page.dart';
 import '../register/register_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+   const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+
   bool isEnglish = true;
-  bool _isObscur = true;
+  bool _isObscure = true;
+  Future<void> _login() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password:  _passwordController.text.trim(),
+        );
+
+        print("تم تسجيل الدخول بنجاح!");
+      } on FirebaseAuthException catch (e) {
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.message ?? "خطأ في البيانات")),
+        );
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    bool _isObscure = true;
+
     return Scaffold(
       backgroundColor: AppColors.black,
       body: SafeArea(
+        child:SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Expanded(
+          child: Form(
+            key: _formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -31,6 +67,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 Image.asset(AppAssets.player, height: 118, width: 121),
                 SizedBox(height: 30),
                 TextFormField(
+                  controller: _emailController,
+                  validator: (value) => value!.isEmpty ? "please, Enter your Email" : null,
+
                   style: TextStyle(color: AppColors.wight),
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.symmetric(
@@ -53,6 +92,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 TextFormField(
                   obscureText: _isObscure,
+                  controller: _passwordController,
+                  validator: (value) => value!.length < 6 ? "password must be 6 letter or mor than 6  " : null,
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.symmetric(
@@ -87,20 +128,24 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(
+                    GestureDetector(
+                      onTap:(){ Navigator.push(
+                        context,MaterialPageRoute(builder: (context)=>ProfilePage(),
+                      ) ,);},
+                      child: Text(
                       AppStrings.forgetPassword,
                       style: TextStyle(
                         color: AppColors.yelow,
                         fontWeight: FontWeight.w400,
                         fontSize: 12,
                       ),
-                    ),
+                    ),),
                   ],
                 ),
 
                 SizedBox(height: 10),
                 ElevatedButton(
-                  onPressed: () {},
+                   onPressed: _login,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.yelow,
                     minimumSize: Size(double.infinity, 40),
@@ -245,7 +290,7 @@ color: AppColors.wight,
               ],
             ),
           ),
-        ),
+        ),),
       ),
     );
   }
