@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../core/app_colors.dart';
+import '../../core/theme/color_pallete.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
    const ForgetPasswordScreen({super.key});
@@ -8,15 +7,15 @@ class ForgetPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: ColorPallete.background,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
-        iconTheme:const IconThemeData(color:AppColors.mainColor),
+        backgroundColor: ColorPallete.background,
+        iconTheme:const IconThemeData(color:ColorPallete.yellow),
         centerTitle: true,
         title: Text("Forget Password",
           style: TextStyle(fontSize:16 ,
               fontWeight:FontWeight.w400,
-              color:AppColors.mainColor
+              color:ColorPallete.yellow
           ),
         ),
       ),
@@ -28,7 +27,7 @@ class ForgetPasswordScreen extends StatelessWidget {
       width: 398,
       height: 56,
       decoration: BoxDecoration(
-        color:AppColors.textField,
+        color:ColorPallete.textField,
         borderRadius: BorderRadius.circular(14),
 
       ),
@@ -67,11 +66,11 @@ class ForgetPasswordScreen extends StatelessWidget {
 
               style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.all(16),
-                  backgroundColor: AppColors.mainColor,
+                  backgroundColor: ColorPallete.background,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16))),
 
-              child: Text("Verify Email", style: TextStyle(color: AppColors.black,
+              child: Text("Verify Email", style: TextStyle(color: ColorPallete.black,
                   fontSize: 20,
                   fontWeight: FontWeight.w400),),
             ),

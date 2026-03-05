@@ -12,7 +12,7 @@ class AppStrings {
   static const String name="Name";
 
   static const String confirmPassword="confirmPassword";
-  static const String oR="_____________OR______________";
+  static const String oR=" OR ";
   static const String phoneNumber="Phone Number";
   static const String createAccount="Create Account";
   static const String alreadyHaveAccount="Already Have Account? ";
