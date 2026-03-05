@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/utils/firebase_auth_utils.dart';
-
-import '../../../core/app_colors.dart';
+import '../../../core/theme/color_pallete.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
   const ForgetPasswordScreen({super.key});
@@ -11,84 +10,168 @@ class ForgetPasswordScreen extends StatefulWidget {
 }
 
 class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
+
   final TextEditingController _emailController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  bool isLoading = false;
+
+  Future<void> resetPassword() async {
+
+    if (!_formKey.currentState!.validate()) return;
+
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+
+      await FirebaseAuthUtils.resetPassword(
+        _emailController.text.trim(),
+      );
+
+      setState(() {
+        isLoading = false;
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Password reset email sent"),
+          backgroundColor: Colors.green,
+        ),
+      );
+
+      Navigator.pop(context);
+
+    } catch (e) {
+
+      setState(() {
+        isLoading = false;
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Failed to send email"),
+          backgroundColor: Colors.red,
+        ),
+      );
+
+    }
+
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: ColorPallete.background,
+
       appBar: AppBar(
-        backgroundColor: AppColors.background,
-        iconTheme: const IconThemeData(color: AppColors.mainColor),
+        backgroundColor: ColorPallete.background,
+        iconTheme: const IconThemeData(color: ColorPallete.yellow),
         centerTitle: true,
-        title: Text(
+        title: const Text(
           "Forget Password",
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w400,
-            color: AppColors.mainColor,
+            color: ColorPallete.yellow,
           ),
         ),
       ),
+
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Image.asset("assets/images/forget_password.png", fit: BoxFit.cover),
-            SizedBox(height: 30),
-            Container(
-              width: 398,
-              height: 56,
-              decoration: BoxDecoration(
-                color: AppColors.textField,
-                borderRadius: BorderRadius.circular(14),
+
+        child: Form(
+          key: _formKey,
+
+          child: Column(
+            children: [
+
+              Image.asset(
+                "assets/images/forget_password.png",
+                fit: BoxFit.cover,
               ),
-              child: TextFormField(
-                controller: _emailController,
-                style: TextStyle(color: Colors.white),
-                maxLines: 2,
-                decoration: InputDecoration(
-                  hintText: "Email",
-                  prefixIcon: Icon(Icons.email, color: Colors.white, size: 30),
-                  hintStyle: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),
-                  border: InputBorder.none,
-                  contentPadding: const EdgeInsets.symmetric(
-                    vertical: 18,
-                    horizontal: 16,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 30),
-            SizedBox(
-              height: 56,
-              width: 398,
-              child: ElevatedButton(
-                onPressed: () {
-                  FirebaseAuthUtils.resetPassword(_emailController.text);
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.all(16),
-                  backgroundColor: AppColors.mainColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
+
+              const SizedBox(height: 30),
+
+              /// Email Field
+              Container(
+                width: 398,
+                height: 56,
+
+                decoration: BoxDecoration(
+                  color: ColorPallete.textField,
+                  borderRadius: BorderRadius.circular(14),
                 ),
 
-                child: Text(
-                  "Verify Email",
-                  style: TextStyle(
-                    color: AppColors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w400,
+                child: TextFormField(
+                  controller: _emailController,
+                  style: const TextStyle(color: Colors.white),
+
+                  decoration: const InputDecoration(
+                    hintText: "Email",
+                    prefixIcon: Icon(Icons.email, color: Colors.white, size: 30),
+                    hintStyle: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.symmetric(
+                      vertical: 18,
+                      horizontal: 16,
+                    ),
+                  ),
+
+                  validator: (value) {
+
+                    if (value == null || value.isEmpty) {
+                      return "Please enter your email";
+                    }
+
+                    if (!value.contains("@") || !value.contains(".")) {
+                      return "Enter a valid email";
+                    }
+
+                    return null;
+                  },
+                ),
+              ),
+
+              const SizedBox(height: 30),
+
+              /// Button
+              SizedBox(
+                height: 56,
+                width: 398,
+
+                child: isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : ElevatedButton(
+
+                  onPressed: resetPassword,
+
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.all(16),
+                    backgroundColor: ColorPallete.yellow,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+
+                  child: const Text(
+                    "Verify Email",
+                    style: TextStyle(
+                      color: ColorPallete.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+
+            ],
+          ),
         ),
       ),
     );

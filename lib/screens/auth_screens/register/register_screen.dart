@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:movie_app/core/route/route_name.dart';
 import 'package:movie_app/utils/firebase_auth_utils.dart';
-
-import '../../../core/App_assets.dart';
-import '../../../core/App_strings.dart';
-import '../../../core/app_colors.dart';
-import '../../../core/route/route_name.dart';
+import '../../../core/theme/App_assets.dart';
+import '../../../core/theme/App_strings.dart';
+import '../../../core/theme/color_pallete.dart';
 import '../../../models/user_data_model.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -17,9 +17,9 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _nameController = TextEditingController();
 
-final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
-final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   bool isEnglish = true;
   bool _isObscur = true;
@@ -28,46 +28,46 @@ final TextEditingController _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.black,
+      backgroundColor: ColorPallete.black,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: AppColors.yelow),
-        backgroundColor: AppColors.black,
+        iconTheme: IconThemeData(color: ColorPallete.yellow),
+        backgroundColor: ColorPallete.black,
         title: Center(
-          child: Text(
-            "register",
-            style: TextStyle(color: AppColors.yelow),
-          ),
+          child: Text("register", style: TextStyle(color: ColorPallete.yellow)),
         ),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: SingleChildScrollView(
-          child:
-          Form(
+          child: Form(
             key: _formKey,
             child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  spacing: 10,
-                  children: [
-                    Image.asset(AppAssets.player3),
-                    CircleAvatar(
-                      radius: 30,
-                      backgroundImage: AssetImage(AppAssets.player1),
-                    ),
-                    //SizedBox(height: 10,),
-                    Image.asset(AppAssets.player2),
+                Bounceable(
+                  onTap: () {},
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    spacing: 20,
+                    children: [
+                      Image.asset(AppAssets.player3),
+                      CircleAvatar(
+                        radius: 90,
+                        backgroundImage: AssetImage(AppAssets.player1),
+                      ),
+                      //SizedBox(height: 10,),
+                      Image.asset(AppAssets.player2),
 
-                    // SizedBox(height: 10,),
-                  ],
+                      // SizedBox(height: 10,),
+                    ],
+                  ),
                 ),
                 SizedBox(height: 10),
-                Text("Avatar", style: TextStyle(color: AppColors.wight)),
+                Text("Avatar", style: TextStyle(color: ColorPallete.white)),
                 SizedBox(height: 10),
                 TextFormField(
-                  controller:_nameController ,
-                  validator: (value){
+                  autovalidateMode: AutovalidateMode.always,
+                  controller: _nameController,
+                  validator: (value) {
                     if (value == null || value.trim().isEmpty) {
                       return 'Name is required';
                     }
@@ -75,10 +75,9 @@ final TextEditingController _passwordController = TextEditingController();
                       return 'Name must be at least 3 letters';
                     }
                     return null;
-
                   },
 
-                  style: TextStyle(color: AppColors.wight),
+                  style: TextStyle(color: ColorPallete.white),
                   decoration: InputDecoration(
                     isDense: true,
                     contentPadding: EdgeInsets.symmetric(
@@ -86,18 +85,24 @@ final TextEditingController _passwordController = TextEditingController();
                       horizontal: 10,
                     ),
                     filled: true,
-                    fillColor: AppColors.blueBlack,
+                    fillColor: ColorPallete.blueBlack,
                     hintText: AppStrings.name,
-                    hintStyle: TextStyle(color: AppColors.wight),
-                    prefixIcon: Icon(Icons.account_box, color: AppColors.wight),
+                    hintStyle: TextStyle(color: ColorPallete.white),
+                    prefixIcon: Icon(
+                      Icons.account_box,
+                      color: ColorPallete.white,
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none,
                     ),
-                    errorBorder:   OutlineInputBorder(
+                    errorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Colors.red,width: 2,style: BorderStyle.solid),
-
+                      borderSide: BorderSide(
+                        color: Colors.red,
+                        width: 2,
+                        style: BorderStyle.solid,
+                      ),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
@@ -105,8 +110,9 @@ final TextEditingController _passwordController = TextEditingController();
                     ),
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 20),
                 TextFormField(
+                  autovalidateMode: AutovalidateMode.always,
                   controller: _emailController,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
@@ -120,34 +126,34 @@ final TextEditingController _passwordController = TextEditingController();
                     }
                     return null;
                   },
-                  style: TextStyle(color: AppColors.wight),
+                  style: TextStyle(color: ColorPallete.white),
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.symmetric(
                       vertical: 5,
                       horizontal: 10,
                     ),
                     filled: true,
-                    fillColor: AppColors.blueBlack,
+                    fillColor: ColorPallete.blueBlack,
                     hintText: 'Email',
-                    hintStyle: TextStyle(color: AppColors.wight),
-                    prefixIcon: Icon(Icons.email, color: AppColors.wight),
+                    hintStyle: TextStyle(color: ColorPallete.white),
+                    prefixIcon: Icon(Icons.email, color: ColorPallete.white),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none,
                     ),
-                    errorBorder:   OutlineInputBorder(
+                    errorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Colors.red,width: 2),
+                      borderSide: BorderSide(color: Colors.red, width: 2),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
                       borderSide: BorderSide(color: Colors.red, width: 2),
                     ),
                   ),
-
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 20),
                 TextFormField(
+                  autovalidateMode: AutovalidateMode.always,
                   controller: _passwordController,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
@@ -169,11 +175,14 @@ final TextEditingController _passwordController = TextEditingController();
                       horizontal: 10,
                     ),
                     filled: true,
-                    fillColor: AppColors.blueBlack,
+                    fillColor: ColorPallete.blueBlack,
                     hintText: AppStrings.passWard,
-                    hintStyle: TextStyle(color: AppColors.wight),
+                    hintStyle: TextStyle(color: ColorPallete.white),
 
-                    prefixIcon: Icon(Icons.lock_outline, color: AppColors.wight),
+                    prefixIcon: Icon(
+                      Icons.lock_outline,
+                      color: ColorPallete.white,
+                    ),
 
                     suffixIcon: IconButton(
                       icon: Icon(
@@ -191,10 +200,13 @@ final TextEditingController _passwordController = TextEditingController();
                       borderRadius: BorderRadius.circular(15),
                       borderSide: BorderSide.none,
                     ),
-                    errorBorder:   OutlineInputBorder(
+                    errorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Colors.red,width: 2,style: BorderStyle.solid),
-
+                      borderSide: BorderSide(
+                        color: Colors.red,
+                        width: 2,
+                        style: BorderStyle.solid,
+                      ),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
@@ -202,8 +214,10 @@ final TextEditingController _passwordController = TextEditingController();
                     ),
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 20),
                 TextFormField(
+                  autovalidateMode: AutovalidateMode.always,
+                  obscureText: _isObscur,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
                       return 'Confirm your password ';
@@ -212,17 +226,20 @@ final TextEditingController _passwordController = TextEditingController();
                       return 'Passwords do not match';
                     }
                   },
-                  style: TextStyle(color: AppColors.wight),
+                  style: TextStyle(color: ColorPallete.white),
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.symmetric(
                       vertical: 5,
                       horizontal: 10,
                     ),
                     filled: true,
-                    fillColor: AppColors.blueBlack,
+                    fillColor: ColorPallete.blueBlack,
                     hintText: AppStrings.confirmPassword,
-                    hintStyle: TextStyle(color: AppColors.wight),
-                    prefixIcon: Icon(Icons.lock_outline, color: AppColors.wight),
+                    hintStyle: TextStyle(color: ColorPallete.white),
+                    prefixIcon: Icon(
+                      Icons.lock_outline,
+                      color: ColorPallete.white,
+                    ),
                     suffixIcon: IconButton(
                       icon: Icon(
                         _isObscur ? Icons.visibility_off : Icons.visibility,
@@ -233,16 +250,19 @@ final TextEditingController _passwordController = TextEditingController();
                           _isObscur = !_isObscur;
                         });
                       },
-                      color: AppColors.wight,
+                      color: ColorPallete.white,
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none,
                     ),
-                    errorBorder:   OutlineInputBorder(
+                    errorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Colors.red,width: 2,style: BorderStyle.solid),
-
+                      borderSide: BorderSide(
+                        color: Colors.red,
+                        width: 2,
+                        style: BorderStyle.solid,
+                      ),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
@@ -250,41 +270,39 @@ final TextEditingController _passwordController = TextEditingController();
                     ),
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 20),
 
                 TextFormField(
+                  autovalidateMode: AutovalidateMode.always,
                   controller: _phoneController,
-                  validator: (value){
+                  validator: (value) {
                     if (value == null || value.trim().isEmpty) {
                       return 'Email is Required';
                     }
-                    final phoneRegex = RegExp(
-
-                        r"^01[0125]\d{8}$"
-                    );
+                    final phoneRegex = RegExp(r"^01[0125]\d{8}$");
                     if (!phoneRegex.hasMatch(value)) {
                       return 'please enter a valid phone Number';
                     }
                     return null;
                   },
-                  style: TextStyle(color: AppColors.wight),
+                  style: TextStyle(color: ColorPallete.white),
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.symmetric(
                       vertical: 5,
                       horizontal: 10,
                     ),
                     filled: true,
-                    fillColor: AppColors.blueBlack,
+                    fillColor: ColorPallete.blueBlack,
                     hintText: AppStrings.phoneNumber,
-                    hintStyle: TextStyle(color: AppColors.wight),
-                    prefixIcon: Icon(Icons.phone, color: AppColors.wight),
+                    hintStyle: TextStyle(color: ColorPallete.white),
+                    prefixIcon: Icon(Icons.phone, color: ColorPallete.white),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none,
                     ),
-                    errorBorder:   OutlineInputBorder(
+                    errorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Colors.red,width: 2),
+                      borderSide: BorderSide(color: Colors.red, width: 2),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
@@ -292,30 +310,28 @@ final TextEditingController _passwordController = TextEditingController();
                     ),
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       UserDataModel? user =
-                      await FirebaseAuthUtils.createUserWithEmailAndPassword(
-                        _nameController.text,
-                        _emailController.text,
-                        _passwordController.text,
-                        _phoneController.text,
-                      );
+                          await FirebaseAuthUtils.createUserWithEmailAndPassword(
+                            _nameController.text,
+                            _emailController.text,
+                            _passwordController.text,
+                            _phoneController.text,
+                          );
                       if (user != null) {
-                       print(
-                          'Account created',
-                        );
-                        Navigator.pushReplacementNamed(context,
-                         RouteName.home_page,
-
+                        print('Account created');
+                        Navigator.pushReplacementNamed(
+                          context,
+                          RouteName.navigation_screen,
                         );
                       }
                     } else {}
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.yelow,
+                    backgroundColor: ColorPallete.yellow,
                     minimumSize: Size(double.infinity, 40),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
@@ -325,32 +341,32 @@ final TextEditingController _passwordController = TextEditingController();
                   child: Text(
                     AppStrings.createAccount,
                     style: TextStyle(
-                      color: AppColors.black,
+                      color: ColorPallete.black,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       AppStrings.alreadyHaveAccount,
                       style: TextStyle(
-                        color: AppColors.wight,
+                        color: ColorPallete.white,
                         fontWeight: FontWeight.w400,
                         fontSize: 19,
                       ),
                     ),
                     InkWell(
-                      onTap: (){
+                      onTap: () {
                         Navigator.pushNamed(context, RouteName.login);
                       },
                       child: Text(
                         AppStrings.login,
                         style: TextStyle(
-                          color: AppColors.yelow,
+                          color: ColorPallete.yellow,
                           fontWeight: FontWeight.w400,
                           fontSize: 19,
                         ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../core/theme/color_pallete.dart';
 
-class ForgetPasswordScreen extends StatelessWidget {
-   const ForgetPasswordScreen({super.key});
+class ForgetPasswordScreenUI extends StatelessWidget {
+   const ForgetPasswordScreenUI({super.key});
 
   @override
   Widget build(BuildContext context) {

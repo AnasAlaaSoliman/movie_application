@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:movie_app/core/route/route_name.dart';
 import 'package:movie_app/core/theme/App_assets.dart';
 import 'package:movie_app/core/theme/color_pallete.dart';
-import 'package:movie_app/pages/home_screen/navigationbar.dart';
-import '../../core/theme/App_strings.dart';
-import '../auth_screens/forget_password_screen.dart';
-import '../register/register_screen.dart';
+import '../../../core/theme/App_strings.dart';
+import '../../../screens/auth_screens/forget_password/forget_password_screen.dart';
+import '../register/register_screenUI.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class LoginScreenUI extends StatefulWidget {
+  const LoginScreenUI({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<LoginScreenUI> createState() => _LoginScreenStateUI();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenStateUI extends State<LoginScreenUI> {
   bool isEnglish = true;
   bool _isObscur = true;
 
@@ -123,9 +123,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: 30),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.pushNamed(
                         context,
-                        MaterialPageRoute(builder: (context) => Navigationbar()),
+                        RouteName.navigation_screen,
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -173,7 +173,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const RegisterScreen(),
+                              builder: (context) => const RegisterScreenUI(),
                             ),
                           );
                         },

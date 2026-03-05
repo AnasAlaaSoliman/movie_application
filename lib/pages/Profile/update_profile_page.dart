@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
-import 'package:movie_app/core/image_repository.dart';
 import 'package:movie_app/core/theme/image_repository.dart';
 import 'package:movie_app/core/route/route_name.dart';
 import 'package:movie_app/core/theme/color_pallete.dart';

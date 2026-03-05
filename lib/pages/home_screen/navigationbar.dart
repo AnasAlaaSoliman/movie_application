@@ -6,12 +6,12 @@ import 'package:movie_app/pages/explore/explore.dart';
 import 'package:movie_app/pages/home_screen/home.dart';
 import 'package:movie_app/pages/search/search.dart';
 
-class Navigationbar extends StatefulWidget {
+class NavigationbarScreen extends StatefulWidget {
   @override
-  State<Navigationbar> createState() => _HomeScreenState();
+  State<NavigationbarScreen> createState() => _HomeScreenStateScreen();
 }
 
-class _HomeScreenState extends State<Navigationbar> {
+class _HomeScreenStateScreen extends State<NavigationbarScreen> {
   int current_index = 0;
 
 
