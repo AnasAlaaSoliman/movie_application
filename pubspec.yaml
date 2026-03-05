@@ -41,6 +41,9 @@ dependencies:
 
 
 
+  firebase_core: ^4.5.0
+  cloud_firestore: ^6.1.2
+  firebase_auth: ^6.2.0
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +71,8 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/icons/bottom_navigation_bar_icons/active/
+    - assets/icons/bottom_navigation_bar_icons/in_active/
     - assets/avatars/
 
   #   - images/a_dot_burr.jpeg

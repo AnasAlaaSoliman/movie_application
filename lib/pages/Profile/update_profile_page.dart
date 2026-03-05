@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
-import 'package:movie_app/core/image_repository.dart';
+import 'package:movie_app/core/theme/image_repository.dart';
+import 'package:movie_app/core/route/route_name.dart';
 import 'package:movie_app/core/theme/color_pallete.dart';
 import 'package:movie_app/customWidget/custom_button.dart';
 import 'package:movie_app/customWidget/darged_avatar_menu.dart';
 import 'package:movie_app/customWidget/textfield.dart';
 
-class ProfilePage extends StatefulWidget {
+class UpdateProfilePage extends StatefulWidget {
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<UpdateProfilePage> createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePageState extends State<UpdateProfilePage> {
   int newAvatarIndex = 0;
 
   @override
@@ -75,7 +76,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, RouteName.forget_password);
+              },
             ),
 
             //Spacer(flex:1,),
@@ -91,6 +94,7 @@ class _ProfilePageState extends State<ProfilePage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               CustomButton(
+                onPressed: (){},
                 text: "Delete Account",
                 textColor: ColorPallete.white,
                 buttonColor: ColorPallete.red,
@@ -99,6 +103,7 @@ class _ProfilePageState extends State<ProfilePage> {
               SizedBox(height: 15),
 
               CustomButton(
+                onPressed: (){},
                 text: "Update Data",
                 textColor: ColorPallete.black,
                 buttonColor: ColorPallete.yellow,
