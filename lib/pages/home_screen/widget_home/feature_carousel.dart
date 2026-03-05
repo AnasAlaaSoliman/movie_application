@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../../models/movie_model.dart';
+
 class FeaturedCarousel extends StatefulWidget {
-  final List movies;
+  final List<MovieModel> movies;
   final Function(int) onPageChanged;
 
    const FeaturedCarousel({super.key, required this.movies, required this.onPageChanged});
@@ -55,7 +57,7 @@ class _FeaturedCarouselState extends State<FeaturedCarousel> {
                         child: Stack(
                           children: [
                             Image.network(
-                              widget.movies[realIndex]['large_cover_image'],
+                              widget.movies[realIndex].largeCoverImage,
                               fit: BoxFit.cover,
                               width: double.infinity,
                             ),
@@ -77,7 +79,7 @@ class _FeaturedCarouselState extends State<FeaturedCarousel> {
                                         color: Colors.yellow, size: 16),
                                     SizedBox(width: 4),
                                     Text(
-                                      (widget.movies[realIndex]['rating'] ?? 0)
+                                      (widget.movies[realIndex].rating)
                                           .toStringAsFixed(1),
                                       style: const TextStyle(
                                         color: Colors.white,

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:movie_app/models/user_data_model.dart';
-import 'package:movie_app/utils/firestore_utils.dart';
+
+import '../models/user_data_model.dart';
+import 'firestore_utils.dart';
 
 class FirebaseAuthUtils {
   static Future<UserDataModel?> createUserWithEmailAndPassword(

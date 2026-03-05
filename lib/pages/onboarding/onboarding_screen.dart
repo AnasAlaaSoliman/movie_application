@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-
+import 'package:movie2_application/core/route/route_name.dart';
 import '../../customWidget/custom_onboarding_widget.dart';
 import '../../customWidget/elevated_button__custom_widget.dart';
 import '../../models/onboarding_data_model.dart';
-import '../login/login_screen.dart';
-import 'package:movie_app/customWidget/custom_onboarding_widget.dart';
-import '../../customWidget/elevated_button__custom_widget.dart';
-import '../../models/onboarding_data_model.dart';
-import '../../screens/auth_screens/login/login_screen.dart';
+
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -84,11 +80,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       );
     } else {
 
-      Navigator.pushReplacement(
+      Navigator.pushReplacementNamed(
         context,
-        MaterialPageRoute(
-          builder: (context) => LoginScreen(),
-        ),
+        RouteName.login
       );
     }
   }
