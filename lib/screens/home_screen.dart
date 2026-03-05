@@ -7,6 +7,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
    return Scaffold(
+     appBar: AppBar(),
      body: Column(
        children: [
          Image.asset("assets/images/splash_logo.png"),
