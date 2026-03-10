@@ -9,7 +9,7 @@ abstract class FirestoreUtils {
         .withConverter<UserDataModel>(
           fromFirestore: (snapshot, _) =>
               UserDataModel.fromFireStore(snapshot.data()!),
-          toFirestore: (value, _) => value.toFireStore(value),
+          toFirestore: (value, _) => value.toFireStore(),
         );
   }
 

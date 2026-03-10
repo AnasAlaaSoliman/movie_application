@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/core/theme/App_assets.dart';
-import 'package:movie_app/core/theme/image_repository.dart';
-import 'package:movie_app/customWidget/movieCard.dart';
-import 'package:movie_app/pages/Profile/update_profile_page.dart';
+import 'package:movie2_application/pages/Profile/update_profile_page.dart';
+import '../../core/theme/App_assets.dart';
 import '../../core/theme/color_pallete.dart';
+import '../../core/theme/image_repository.dart';
 import '../../customWidget/custom_button.dart';
-import '../../screens/auth_screens/login/login_screen.dart';
+import '../../customWidget/movieCard.dart';
+import '../auth_screens/login/login_screen.dart';
 
 class Profile extends StatefulWidget {
   @override

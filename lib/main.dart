@@ -1,21 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-
-import 'package:movie_app/core/route/app_routers.dart';
-import 'package:movie_app/core/route/route_name.dart';
-
+import 'core/route/app_routers.dart';
+import 'core/route/route_name.dart';
+import 'cubit/movie_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+
+
+
 void main()async{
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Future.delayed(const Duration(seconds: 3));
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
 
   FlutterNativeSplash.remove();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+  runApp(
+    BlocProvider(
+      create: (context) => MovieCubit()..getMovies(),
+      child: const MyApp(),
+    ),
   );
-  runApp(const MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
@@ -30,11 +38,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      initialRoute: RouteName.register,
+      initialRoute: RouteName.navigation_screen,
       onGenerateRoute: AppRouters.onGenerateRoute,
 
     );
   }
 }
-
-
