@@ -26,4 +26,9 @@ abstract class AppAssets {
       "assets/icons/bottom_navigation_bar_icons/in_active/explore.png";
   static const String profile_icon_Inactive =
       "assets/icons/bottom_navigation_bar_icons/in_active/Profiel.png";
+  static const String favoriteIcon = 'assets/icons/favorite.svg';
+  static const String clockIcon = 'assets/icons/clock.svg';
+  static const String starIcon ='assets/icons/star.svg';
+  static const String largeScreenShot ='assets/images/large-screenshot1.png';
+
 }

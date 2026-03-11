@@ -23,8 +23,10 @@ class MoviesGrid extends StatelessWidget {
         final movie = movies[index];
 
         return MovieCard(
-          imagePath: movie['medium_cover_image'],
-          rating: (movie['rating'] ?? 0).toDouble(),
+          movie: movie,
+          // imagePath: movie['medium_cover_image'],
+          // rating: (movie['rating'] ?? 0).toDouble(),
+          // movieId: movie['id'],
         );
       },
     );

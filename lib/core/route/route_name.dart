@@ -7,7 +7,7 @@ abstract class RouteName {
   static const String login = 'login';
   static const String register = 'register';
   static const String navigation_screen = 'navigationBar Screen';
-
+  static const String movieDetails = 'movieDetails';
 //static const String home = '/homePage';
 //static const String NewsBreif = '/newsBreif';
 

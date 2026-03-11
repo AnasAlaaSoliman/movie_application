@@ -1,28 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:movie2_application/core/route/route_name.dart';
 
 class MovieCard extends StatelessWidget {
-  final String imagePath;
-  final double rating;
+  // final String imagePath;
+  // final double rating;
+  final Map<String, dynamic> movie;
 
+  const MovieCard({
+    super.key, required this.movie,
 
-
-  const MovieCard({super.key, required this.imagePath,required this.rating});
+  });
 
   @override
   Widget build(BuildContext context) {
+
+    final String imagePath=movie['medium_cover_image'];
+    final double rating=(movie['rating'] ?? 0).toDouble();
     return InkWell(
-      onTap: (){},
+      onTap: () {
+        final movieId = movie['id'] as int?;
+        Navigator.pushNamed(
+          context,
+          RouteName.movieDetails,
+          arguments: movieId
+        );
+      },
       child: Padding(
         padding: const EdgeInsets.only(right: 16),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: Stack(
             children: [
-              Image.network(
-                imagePath,
-
-                fit: BoxFit.cover,
-              ),
+              Image.network(imagePath, fit: BoxFit.cover),
 
               /// ⭐ Rating
               Positioned(
@@ -30,15 +39,16 @@ class MovieCard extends StatelessWidget {
                 left: 8,
                 child: Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 6, vertical: 3),
+                    horizontal: 6,
+                    vertical: 3,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.black.withOpacity(0.7),
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child:  Row(
+                  child: Row(
                     children: [
-                      Icon(Icons.star,
-                          color: Colors.yellow, size: 14),
+                      Icon(Icons.star, color: Colors.yellow, size: 14),
                       SizedBox(width: 4),
                       Text(
                         rating.toString(),
