@@ -25,7 +25,6 @@ class _HomeBannerState extends State<HomeBanner> {
     return Stack(
       children: [
 
-
         /// 🎬 Dynamic Background
         AnimatedSwitcher(
           duration: const Duration(milliseconds: 500),
