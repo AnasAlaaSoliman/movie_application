@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:movie2_application/core/theme/App_assets.dart';
 
+import '../../../models/movie_model.dart';
 import 'feature_carousel.dart';
 
+
 class HomeBanner extends StatefulWidget {
-  final List movies;
+  final List<MovieModel> movies;
   const HomeBanner({super.key, required this.movies});
 
   @override
@@ -26,13 +29,14 @@ class _HomeBannerState extends State<HomeBanner> {
         AnimatedSwitcher(
           duration: const Duration(milliseconds: 500),
           child: Image.network(
-            movie['large_cover_image'],
-            key: ValueKey(movie['id']),
+          movie.largeCoverImage,
+            key: ValueKey(movie.id),
             height: 650,
             width: double.infinity,
             fit: BoxFit.cover,
           ),
         ),
+
 
         /// 🌑 Gradient
         Container(
@@ -49,11 +53,14 @@ class _HomeBannerState extends State<HomeBanner> {
           ),
         ),
 
+
         SafeArea(
           child: Column(
             children: [
+            Image.asset("assets/images/Avalable_now.png",fit:BoxFit.cover,),
 
-              const SizedBox(height: 20),
+
+              const SizedBox(height: 10),
 
               SizedBox(
                 height: 420,
@@ -66,6 +73,7 @@ class _HomeBannerState extends State<HomeBanner> {
                   },
                 ),
               ),
+              Image.asset("assets/images/watch_now.png",fit:BoxFit.cover,),
             ],
           ),
         ),
