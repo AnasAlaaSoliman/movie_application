@@ -7,6 +7,7 @@ import '../../core/theme/color_pallete.dart';
 import '../../cubit/movie_cubit.dart';
 import '../../cubit/movie_state.dart' hide MovieCubit;
 
+
 class HomeTabScreen extends StatelessWidget {
   const HomeTabScreen({super.key});
 
