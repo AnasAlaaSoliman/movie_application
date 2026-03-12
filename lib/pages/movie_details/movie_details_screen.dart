@@ -94,10 +94,14 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
 
 
  */
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:movie2_application/pages/movie_details/movie_details.dart';
 import 'package:movie2_application/pages/movie_details/similar_movie.dart';
 import 'package:movie2_application/pages/movie_details/summary.dart';
+import 'package:movie2_application/pages/movie_details/upperHadeer.dart';
 import 'package:movie2_application/pages/movie_details/upper_part.dart';
 import '../../core/theme/color_pallete.dart' show ColorPallete;
 import '../../cubit/movie_details_cubit.dart';
@@ -119,7 +123,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorPallete.black,
-      appBar: AppBar(title: const Text("Movie Details")),
       body: BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
         builder: (context, state) {
           if (state is MovieDetailsLoading) {
@@ -136,8 +139,16 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
 
             return SingleChildScrollView(
               child: Column(
+
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const SizedBox(height: 16),
+
+
+
+                  Details(movies: movie,),
+                  const SizedBox(height: 16),
+
 
                   /// === هذا الجزء الخاص بزميلك ===
                   MovieDetailsUI(movie: movie),

@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:movie2_application/core/theme/color_pallete.dart';
 
