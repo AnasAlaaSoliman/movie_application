@@ -52,7 +52,7 @@ class MovieDetailsUI extends StatelessWidget {
           // Stats: Likes, Runtime, Rating
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Row(
+            child: Row(spacing: 15,
               children: [
                 Expanded(
                   child: MovieStatsCardWidget(

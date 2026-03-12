@@ -23,21 +23,7 @@ class Details extends StatelessWidget {
               ),
             ),
 
-            Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Bounceable(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Image.asset(
-                    "assets/icons/back_arrow.png",
-                    width: 30,
-                  ),
-                ),
-              ),
-            ),
+
 
             const Align(
               alignment: Alignment.topRight,
