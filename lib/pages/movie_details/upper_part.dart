@@ -111,14 +111,14 @@ class MovieDetailsUI extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ScreenShotsCardWidget(
-                    imagePath: movie.mediumScreenshotImage1
+                    imagePath: screenshots[index].isNotEmpty
                         ? screenshots[index]
                         : 'https://via.placeholder.com/150',
                   ),
                 );
               },
             ),
-          ),
+          )
         ],
       ),
     );
