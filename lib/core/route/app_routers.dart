@@ -69,6 +69,7 @@ abstract class AppRouters {
             create: (_) => MovieDetailsCubit()
               ..getMovieDetails(movieId),
             child: MovieDetailsScreen(
+
               movieId: movieId,
             ),
 >>>>>>> develop

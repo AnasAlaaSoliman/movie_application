@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:movie2_application/core/theme/color_pallete.dart';
 
@@ -11,52 +12,55 @@ class GenresMovie extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
 
-        Text(
-          "Genres",
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w700,
-            color: ColorPallete.white,
+          Text(
+            "Genres",
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.w700,
+              color: ColorPallete.white,
+            ),
           ),
-        ),
 
-        SizedBox(height: 11),
+          SizedBox(height: 11),
 
-        GridView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: genres.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            crossAxisSpacing: 15,
-            mainAxisSpacing: 15,
-            childAspectRatio: 3,
-          ),
-          itemBuilder: (context, index) {
+          GridView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: genres.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              crossAxisSpacing: 15,
+              mainAxisSpacing: 15,
+              childAspectRatio: 3,
+            ),
+            itemBuilder: (context, index) {
 
-            return Container(
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: ColorPallete.gray,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Text(
-                genres[index],
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: ColorPallete.white,
-                  fontSize: 16,
+              return Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: ColorPallete.gray,
+                  borderRadius: BorderRadius.circular(16),
                 ),
-              ),
-            );
-          },
-        ),
+                child: Text(
+                  genres[index],
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: ColorPallete.white,
+                    fontSize: 16,
+                  ),
+                ),
+              );
+            },
+          ),
 
-      ],
+        ],
+      ),
     );
   }
 }
