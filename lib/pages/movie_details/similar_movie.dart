@@ -27,7 +27,7 @@ class SimilarMovie extends StatelessWidget {
 
         SizedBox(height: 11),
 
-        GridView.builder(
+       /* GridView.builder(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
           itemCount: movies.length,
@@ -49,6 +49,27 @@ class SimilarMovie extends StatelessWidget {
             );
           },
 
+        ),
+        */
+        GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: movies.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 14,
+            mainAxisSpacing: 14,
+            childAspectRatio: 0.65,
+          ),
+          itemBuilder: (context, index) {
+            final movie = movies[index];
+
+            return MovieCard(
+              imagePath: movie.poster, // بدل movieImage
+              rating: movie.rating,
+              movieId: movie.id,
+            );
+          },
         ),
 
 
