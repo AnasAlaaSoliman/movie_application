@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      initialRoute: RouteName.navigation_screen,
+      initialRoute: RouteName.login,
       onGenerateRoute: AppRouters.onGenerateRoute,
 
     );

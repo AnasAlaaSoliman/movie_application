@@ -25,16 +25,16 @@ class Details extends StatelessWidget {
 
 
 
-            const Align(
+             Align(
               alignment: Alignment.topRight,
               child: Padding(
                 padding: EdgeInsets.all(16),
-                child: Icon(
+                child: Bounceable(onTap: (){} ,child: Icon(
                   Icons.bookmark,
                   color: Colors.white,
                   size: 30,
                 ),
-              ),
+              )),
             ),
 
             Align(
