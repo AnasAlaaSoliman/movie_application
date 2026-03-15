@@ -40,19 +40,19 @@ class _ProfileState extends State<Profile> {
                     SizedBox(height: 20),
 
                     Row(
-                      spacing: 30,
+                      spacing: 10,
                       children: [
                         Column(
                           children: [
                             CircleAvatar(
-                              radius: 60,
+                              radius: 50,
                               child: Image.asset(AppAssets.player1),
                             ),
 
                             SizedBox(height: 15),
 
                             Text(
-                              "John Safwat",
+                              userName,
                               style: TextStyle(
                                 color: ColorPallete.white,
                                 fontSize: 20,
@@ -67,7 +67,7 @@ class _ProfileState extends State<Profile> {
                               wishListNo,
                               style: TextStyle(
                                 color: ColorPallete.white,
-                                fontSize: 36,
+                                fontSize: 24,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
@@ -75,7 +75,7 @@ class _ProfileState extends State<Profile> {
                               "Wish List",
                               style: TextStyle(
                                 color: ColorPallete.white,
-                                fontSize: 24,
+                                fontSize: 20,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
@@ -87,7 +87,7 @@ class _ProfileState extends State<Profile> {
                               historyNo,
                               style: TextStyle(
                                 color: ColorPallete.white,
-                                fontSize: 36,
+                                fontSize: 24,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
@@ -95,7 +95,7 @@ class _ProfileState extends State<Profile> {
                               "History",
                               style: TextStyle(
                                 color: ColorPallete.white,
-                                fontSize: 24,
+                                fontSize: 20,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
