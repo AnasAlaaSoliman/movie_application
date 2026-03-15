@@ -41,8 +41,8 @@ class GenresMovie extends StatelessWidget {
             ),
             itemBuilder: (context, index) {
 
-              return Container(
-                padding: EdgeInsets.all(10),
+              return Container(alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
                   color: ColorPallete.gray,
                   borderRadius: BorderRadius.circular(16),
