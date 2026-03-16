@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:movie2_application/pages/home_screen/widget_home/movie_card.dart';
 import '../../core/theme/color_pallete.dart';
 import '../../core/theme/image_repository.dart';
-import '../../customWidget/movieCard.dart';
 
 class Search extends StatelessWidget {
   @override
@@ -44,7 +44,7 @@ class Search extends StatelessWidget {
             childAspectRatio: 0.65,
           ),
           itemBuilder: (context, index) {
-            return Moviecard( movieImage: ImageRepository.historyImage[index]);
+            return MovieCard( imagePath: ImageRepository.historyImage[index],movieId: 7,rating: 4,);
           },
         ),
       ),

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
 import '../../core/theme/color_pallete.dart';
 import '../../core/theme/image_repository.dart';
-import '../../customWidget/movieCard.dart';
+import '../home_screen/widget_home/movie_card.dart';
 
 class Explore extends StatelessWidget {
   List<String> categories = [
@@ -55,7 +54,6 @@ class Explore extends StatelessWidget {
           ),
         ),
 
-
         body: TabBarView(
           children: categories.map((category) {
             return Padding(
@@ -69,8 +67,10 @@ class Explore extends StatelessWidget {
                   childAspectRatio: 0.65,
                 ),
                 itemBuilder: (context, index) {
-                  return Moviecard(
-                    movieImage: ImageRepository.historyImage[index],
+                  return MovieCard(
+                    imagePath: ImageRepository.historyImage[index],
+                    movieId: 7,
+                    rating: 4,
                   );
                 },
               ),
