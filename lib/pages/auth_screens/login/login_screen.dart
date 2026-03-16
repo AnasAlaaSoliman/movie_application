@@ -231,23 +231,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     elevation: 0,
                   ),
-                  child: Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      spacing: 10,
-                      children: [
-                        Image.asset(AppAssets.icon_google),
-                        Text(
-                          AppStrings.loginWithGoogle,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    spacing: 10,
+                    children: [
+                      Image.asset(AppAssets.icon_google),
+                      Text(
+                        AppStrings.loginWithGoogle,
 
-                          style: TextStyle(
-                            color: ColorPallete.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                          ),
+                        style: TextStyle(
+                          color: ColorPallete.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
 

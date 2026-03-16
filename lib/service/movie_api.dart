@@ -5,7 +5,8 @@ import '../models/movie_details_model.dart';
 
 class MovieApi {
   static Future<MovieDetailsModel> getMovieDetails(int movieId) async {
-    final url = "https://movies-api.accel.li/api/v2/movie_details.json?movie_id=$movieId&with_cast=true";
+    final url =
+        "https://movies-api.accel.li/api/v2/movie_details.json?movie_id=$movieId&with_images=true&with_cast=true";
     final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {

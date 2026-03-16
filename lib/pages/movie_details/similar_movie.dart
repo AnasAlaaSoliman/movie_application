@@ -12,68 +12,71 @@ class SimilarMovie extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
 
-        Text(
-          "Similar",
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w700,
-            color: ColorPallete.white,
+          Text(
+            "Similar",
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.w700,
+              color: ColorPallete.white,
+            ),
           ),
-        ),
 
-        SizedBox(height: 11),
+          SizedBox(height: 11),
 
-       /* GridView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: movies.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 14,
-            mainAxisSpacing: 14,
-            childAspectRatio: 0.65,
+         /* GridView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: movies.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 14,
+              mainAxisSpacing: 14,
+              childAspectRatio: 0.65,
+            ),
+            itemBuilder: (context, index) {
+
+              final movie = movies[index];
+
+              return MovieCard(
+                imagePath: movie.movieImage ?? "",
+                rating: movie.rating ?? 0,
+                movieId: movie.id ?? 0,
+
+              );
+            },
+
           ),
-          itemBuilder: (context, index) {
+          */
+          GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: movies.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 14,
+              mainAxisSpacing: 14,
+              childAspectRatio: 0.65,
+            ),
+            itemBuilder: (context, index) {
+              final movie = movies[index];
 
-            final movie = movies[index];
-
-            return MovieCard(
-              imagePath: movie.movieImage ?? "",
-              rating: movie.rating ?? 0,
-              movieId: movie.id ?? 0,
-
-            );
-          },
-
-        ),
-        */
-        GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: movies.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 14,
-            mainAxisSpacing: 14,
-            childAspectRatio: 0.65,
+              return MovieCard(
+                imagePath: movie.poster, // بدل movieImage
+                rating: movie.rating,
+                movieId: movie.id,
+              );
+            },
           ),
-          itemBuilder: (context, index) {
-            final movie = movies[index];
-
-            return MovieCard(
-              imagePath: movie.poster, // بدل movieImage
-              rating: movie.rating,
-              movieId: movie.id,
-            );
-          },
-        ),
 
 
-      ],
+        ],
+      ),
     );
   }
 

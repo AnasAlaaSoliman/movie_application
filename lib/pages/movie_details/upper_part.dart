@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:movie2_application/cubit/historyCubit.dart';
+import 'package:movie2_application/cubit/movie_details_cubit.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/theme/App_assets.dart';
 import '../../core/theme/App_strings.dart';
 import '../../core/theme/color_pallete.dart';
+import '../../cubit/movie_details_state.dart';
 import '../../customWidget/elevated_button__custom_widget.dart';
 import '../../customWidget/movie_stats_card_widget.dart';
 import '../../customWidget/screen_shots_card_widget.dart';
@@ -42,9 +46,14 @@ class MovieDetailsUI extends StatelessWidget {
                     mode: LaunchMode.inAppWebView, // بدل inAppBrowser
                   );
                 } catch (e) {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text(e.toString())));
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(SnackBar(content: Text(e.toString())));
                 }
+
+                (context.read<MovieDetailsCubit>().state as MovieDetailsLoaded)
+                    .movie;
+                context.read<Historycubit>().addHistory(movie);
               },
             ),
           ),
@@ -53,6 +62,7 @@ class MovieDetailsUI extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
+              spacing: 15,
               children: [
                 Expanded(
                   child: MovieStatsCardWidget(

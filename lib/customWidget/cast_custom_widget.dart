@@ -29,7 +29,7 @@ class CastCustomWidget extends StatelessWidget {
             radius: 30,
             backgroundImage: profilePath != null
                 ? NetworkImage(profilePath!)
-                : AssetImage("assets/images/per.jpg") as ImageProvider,
+                : AssetImage("assets/avatars/incognito.png") as ImageProvider,
           ),
           SizedBox(width: 12),
           Expanded(

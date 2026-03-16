@@ -94,10 +94,14 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
 
 
  */
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:movie2_application/pages/movie_details/movie_details.dart';
 import 'package:movie2_application/pages/movie_details/similar_movie.dart';
 import 'package:movie2_application/pages/movie_details/summary.dart';
+import 'package:movie2_application/pages/movie_details/upperHadeer.dart';
 import 'package:movie2_application/pages/movie_details/upper_part.dart';
 import '../../core/theme/color_pallete.dart' show ColorPallete;
 import '../../cubit/movie_details_cubit.dart';
@@ -108,6 +112,7 @@ import 'genres_movie.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
   final int movieId;
+
   const MovieDetailsScreen({super.key, required this.movieId});
 
   @override
@@ -119,7 +124,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorPallete.black,
-      appBar: AppBar(title: const Text("Movie Details")),
       body: BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
         builder: (context, state) {
           if (state is MovieDetailsLoading) {
@@ -134,53 +138,60 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
             final movie = state.movie;
             final similar = state.similarMovies;
 
-            return SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+            return Stack(
+              children: [
+                SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
 
-                  /// === هذا الجزء الخاص بزميلك ===
-                  MovieDetailsUI(movie: movie),
 
-                  const SizedBox(height: 16),
+                      Details(movies: movie),
 
-                  /// Summary
-                  Summary(movie: movie),
+                      const SizedBox(height: 16),
 
-                  const SizedBox(height: 16),
+                      MovieDetailsUI(movie: movie),
 
-                  /// Cast
-                  Cast(),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: movie.cast.length,
-                    itemBuilder: (context, index) {
-                      final actor = movie.cast[index];
-                      return CastCustomWidget(
-                        nameActor: actor.name,
-                        character: actor.character,
-                        profilePath: actor.profilePath,
-                      );
-                    },
+                      const SizedBox(height: 16),
+
+                      Summary(movie: movie),
+
+                      const SizedBox(height: 16),
+
+                      Cast(movie: movie,),
+
+                      const SizedBox(height: 16),
+
+                      GenresMovie(genres: movie.movieGenres ?? []),
+
+                      const SizedBox(height: 16),
+
+                      SimilarMovie(movies: similar),
+
+                      const SizedBox(height: 40),
+                    ],
                   ),
+                ),
 
-                  const SizedBox(height: 16),
-
-                  /// Genres
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: GenresMovie(genres: movie.movieGenres ?? []),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 50,
                   ),
-
-                  const SizedBox(height: 16),
-
-                  /// Similar Movies
-                  SimilarMovie(movies: similar),
-
-                  const SizedBox(height: 20),
-                ],
-              ),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Bounceable(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Image.asset(
+                        "assets/icons/back_arrow.png",
+                        width: 25,height: 25,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             );
           }
 
