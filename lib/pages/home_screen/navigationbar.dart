@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:movie2_application/pages/home_screen/Home_tab_screen.dart';import '../../core/theme/App_assets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie2_application/cubit/movie_cubit.dart';
+import 'package:movie2_application/cubit/movie_details_state.dart';
+import 'package:movie2_application/cubit/movie_state.dart' hide MovieCubit;
+import 'package:movie2_application/models/movie_model.dart';
+import 'package:movie2_application/pages/home_screen/Home_tab_screen.dart';
+import '../../core/theme/App_assets.dart';
 import '../../core/theme/color_pallete.dart';
 
+import '../../cubit/movie_details_cubit.dart';
+import '../../models/movie_details_model.dart';
 import '../Profile/profile.dart';
 import '../explore/explore.dart';
 import '../search/search.dart';
@@ -14,8 +22,7 @@ class NavigationbarScreen extends StatefulWidget {
 class _HomeScreenStateScreen extends State<NavigationbarScreen> {
   int current_index = 0;
 
-
-  List screens=[HomeTabScreen(),Search(),Explore(),Profile()];
+  // List screens = [HomeTabScreen(), Search(), Explore(), Profile()];
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +38,7 @@ class _HomeScreenStateScreen extends State<NavigationbarScreen> {
             onTap: (x) {
               setState(() {
                 current_index = x;
+                //var cubit = context.read<MovieCubit>();
               });
             },
 
@@ -96,7 +104,28 @@ class _HomeScreenStateScreen extends State<NavigationbarScreen> {
           ),
         ),
       ),
-      body: screens[current_index],
+      body: BlocBuilder<MovieCubit, MovieState>(
+        builder: (context, state) {
+          if (state is MovieInitial) {
+            return SizedBox.shrink();
+          }
+          if (state is MovieLoading) {
+            return Center(child: CircularProgressIndicator());
+          }
+          if (state is MovieSuccess) {
+            return [
+              HomeTabScreen(),
+              Search(),
+              Explore(),
+              Profile(),
+            ][current_index];
+          }
+          if (state is MovieError) {
+            return Text(state.message);
+          }
+          return SizedBox.shrink();
+        },
+      ),
     );
   }
 }

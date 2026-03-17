@@ -40,6 +40,7 @@ class MovieCubit extends Cubit<MovieState> {
     }
   }
 
+
   void changeCurrentIndex(int index) {
 
     currentIndex = index;
@@ -47,5 +48,19 @@ class MovieCubit extends Cubit<MovieState> {
     emit(MovieSuccess(movies));
 
   }
-
+  List<String> get categories {
+    return movies
+        .expand((movie) => movie.genres)
+        .map((e) => e.trim())
+        .toSet()
+        .toList()
+      ..sort();
+  }
+  List<MovieModel> getMoviesByCategory(String category) {
+    return movies.where((movie) {
+      return movie.genres.any(
+            (g) => g.toLowerCase() == category.toLowerCase(),
+      );
+    }).toList();
+  }
 }

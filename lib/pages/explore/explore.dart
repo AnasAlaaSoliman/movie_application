@@ -1,20 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../core/theme/color_pallete.dart';
 import '../../core/theme/image_repository.dart';
+import '../../cubit/movie_cubit.dart';
 import '../home_screen/widget_home/movie_card.dart';
 
 class Explore extends StatelessWidget {
-  List<String> categories = [
-    "Action",
-    "Adventure",
-    "Animation",
-    "Biography",
-    "egyptian",
-    "americans",
-  ];
+
+  Explore({super.key});
+
+  // final List<String> categories = [
+  //   "Drama",
+  //   "Adventure",
+  //   "Animation",
+  //   "Biography",
+  //   "Horror",
+  //   "Action",
+  //   "Comedy",
+  //   "Crime",
+  //   "History",
+  //   "Egyptian",
+  //   "Thriller",
+  //   "Music",
+  //   "Romance",
+  //   "Family",
+  //   "Americans",
+  // ];
 
   @override
   Widget build(BuildContext context) {
+    bool isSelected = false;
+
+    final cubit = context.watch<MovieCubit>();
+    final categories = cubit.categories;
+
     return DefaultTabController(
       length: categories.length,
       child: Scaffold(
@@ -56,10 +75,16 @@ class Explore extends StatelessWidget {
 
         body: TabBarView(
           children: categories.map((category) {
+            final movies = cubit.getMoviesByCategory(category);
+            if (movies.isEmpty) {
+              return Center(
+                child: Text("No movies", style: TextStyle(color: Colors.white)),
+              );
+            }
             return Padding(
               padding: const EdgeInsets.all(16),
               child: GridView.builder(
-                itemCount: ImageRepository.historyImage.length,
+                itemCount: movies.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 14,
@@ -67,10 +92,11 @@ class Explore extends StatelessWidget {
                   childAspectRatio: 0.65,
                 ),
                 itemBuilder: (context, index) {
+                  final movie = movies[index];
                   return MovieCard(
-                    imagePath: ImageRepository.historyImage[index],
-                    movieId: 7,
-                    rating: 4,
+                    imagePath: movie.mediumCoverImage,
+                    rating: movie.rating,
+                    movieId: movie.id,
                   );
                 },
               ),

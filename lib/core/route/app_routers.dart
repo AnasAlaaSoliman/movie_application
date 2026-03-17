@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie2_application/core/route/route_name.dart';
+<<<<<<< dalia_feature
+import 'package:movie2_application/models/movie_data_model.dart';
+import 'package:movie2_application/pages/movie_details/movie_details.dart';
+import 'package:movie2_application/pages/movie_details/movie_details_cubit/movie_details_cubit.dart';
+import 'package:movie2_application/pages/movie_details/movie_details_cubit/movie_details_states.dart';
+=======
 import 'package:movie2_application/pages/movie_details/movie_details_screen.dart';
 import '../../cubit/movie_details_cubit.dart';
+>>>>>>> develop
 import '../../pages/Profile/profile.dart';
 import '../../pages/auth_screens/forget_password/forget_password_screen.dart';
 import '../../pages/auth_screens/login/login_screen.dart';
@@ -16,7 +23,23 @@ abstract class AppRouters {
       case RouteName.profile_page:
         return MaterialPageRoute(builder: (context) => Profile());
 
+      case RouteName.onboarding_page:
+        return MaterialPageRoute(builder: (context) => OnboardingScreen());
 
+<<<<<<< dalia_feature
+      case RouteName.navigation_screen:
+        return MaterialPageRoute(builder: (context) => NavigationbarScreen());
+
+      case RouteName.login:
+        return MaterialPageRoute(builder: (context) => LoginScreen());
+
+      case RouteName.forget_password:
+        return MaterialPageRoute(builder: (context) => ForgetPasswordScreen());
+
+      case RouteName.register:
+        return MaterialPageRoute(builder: (context) => RegisterScreen());
+      case RouteName.movieDetails:
+=======
       case RouteName.onboarding_page:
         return MaterialPageRoute(builder: (context) => OnboardingScreen());
 
@@ -34,16 +57,22 @@ abstract class AppRouters {
 
       case RouteName.movie_details_screen:
 
+>>>>>>> develop
         final movieId = settings.arguments as int;
 
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
+<<<<<<< dalia_feature
+            create: (context) => MovieDetailsCubit(movieId: movieId),
+            child: MovieDetails(movieId: movieId),
+=======
             create: (_) => MovieDetailsCubit()
               ..getMovieDetails(movieId),
             child: MovieDetailsScreen(
 
               movieId: movieId,
             ),
+>>>>>>> develop
           ),
         );
     }
