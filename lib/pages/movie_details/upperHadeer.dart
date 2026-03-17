@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:movie2_application/cubit/movie_details_cubit.dart';
+import 'package:movie2_application/cubit/movie_details_state.dart';
+import 'package:movie2_application/cubit/watchListCubit.dart';
 import '../../models/movie_details_model.dart';
 
 class Details extends StatelessWidget {
@@ -15,24 +19,22 @@ class Details extends StatelessWidget {
         height: 650,
         child: Stack(
           children: [
-
             Positioned.fill(
-              child: Image.network(
-                movies.poster,
-                fit: BoxFit.cover,
-              ),
+              child: Image.network(movies.poster, fit: BoxFit.cover),
             ),
 
-
-
-            const Align(
+            Align(
               alignment: Alignment.topRight,
               child: Padding(
                 padding: EdgeInsets.all(16),
-                child: Icon(
-                  Icons.bookmark,
-                  color: Colors.white,
-                  size: 30,
+                child: Bounceable(
+                  onTap: () {
+                    final movie =
+                        (context.read<MovieDetailsCubit>().state
+                                as MovieDetailsLoaded).movie;
+                        context.read<WatchListCubit>().addMovie(movie);
+                  },
+                  child: Icon(Icons.bookmark, color: Colors.white, size: 30),
                 ),
               ),
             ),
@@ -47,10 +49,7 @@ class Details extends StatelessWidget {
                 ),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [
-                      Colors.transparent,
-                      Colors.black.withOpacity(0.7),
-                    ],
+                    colors: [Colors.transparent, Colors.black.withOpacity(0.7)],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                   ),

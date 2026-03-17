@@ -89,7 +89,7 @@ class _ProfilePageState extends State<UpdateProfilePage> {
         ),
       ),
 
-      body: Padding(
+      body: SingleChildScrollView(child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -141,7 +141,7 @@ class _ProfilePageState extends State<UpdateProfilePage> {
             ),
           ],
         ),
-      ),
+      )),
 
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(20),
