@@ -21,6 +21,9 @@ class ImageRepository {
   static const String history10 = "assets/images/history-10.png";
   static const String history11 = "assets/images/history-11.png";
   static const String history12 = "assets/images/history-12.png";
+  static const String EmptySearch = "assets/images/Empty_search.png";
+
+
 
 
   static const List<String> avatars = [
