@@ -128,7 +128,7 @@ class MovieDetailsUI extends StatelessWidget {
                 );
               },
             ),
-          ),
+          )
         ],
       ),
     );
