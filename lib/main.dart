@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      initialRoute: RouteName.onboarding_page,
+      initialRoute: RouteName.navigation_screen,
       onGenerateRoute: AppRouters.onGenerateRoute,
 
     );
