@@ -31,14 +31,14 @@ class _ProfileState extends State<Profile> {
       child: Scaffold(
         backgroundColor: ColorPallete.gray,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(350),
+          preferredSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.46),
           child: AppBar(
             automaticallyImplyLeading: false,
             backgroundColor: ColorPallete.gray,
             elevation: 0,
 
             flexibleSpace: SafeArea(
-              child: Padding(
+              child: SingleChildScrollView(child:  Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   children: [
@@ -47,75 +47,82 @@ class _ProfileState extends State<Profile> {
                     Row(
                       spacing: 10,
                       children: [
-                        Column(
-                          children: [
-                            CircleAvatar(
-                              radius: 50,
-                              child: Image.asset(AppAssets.player1),
-                            ),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                radius: 50,
+                                child: Image.asset(AppAssets.player1),
+                              ),
 
-                            SizedBox(height: 15),
+                              SizedBox(height: 15),
 
-                            Text(
-                              userName,
-                              style: TextStyle(
-                                color: ColorPallete.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700,
+                              Text(
+                                userName,
+                                style: TextStyle(
+                                  color: ColorPallete.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                        Column(
-                          children: [
-                            BlocBuilder<
-                              WatchListCubit,
-                              List<MovieDetailsModel>
-                            >(
-                              builder: (context, movies) {
-                                return Text(
-                                  movies.length.toString(),
-                                  style: TextStyle(
-                                    color: ColorPallete.white,
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                );
-                              },
-                            ),
-                            Text(
-                              "Wish List",
-                              style: TextStyle(
-                                color: ColorPallete.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700,
+                        Expanded(
+                          child: Column(
+
+                            children: [
+                              BlocBuilder<
+                                WatchListCubit,
+                                List<MovieDetailsModel>
+                              >(
+                                builder: (context, movies) {
+                                  return Text(
+                                    movies.length.toString(),
+                                    style: TextStyle(
+                                      color: ColorPallete.white,
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  );
+                                },
                               ),
-                            ),
-                          ],
+                              Text(
+                                "Wish List",
+                                style: TextStyle(
+                                  color: ColorPallete.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        Column(
-                          children: [
-                            BlocBuilder<Historycubit,List<MovieDetailsModel>>(
-                              builder: (context, movies) {
-                                return Text(
-                                  movies.length.toString(),
-                                  style: TextStyle(
-                                    color: ColorPallete.white,
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                );
-                              },
-                            ),
-                            Text(
-                              "History",
-                              style: TextStyle(
-                                color: ColorPallete.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700,
+                        Expanded(
+                          child: Column(
+                            children: [
+                              BlocBuilder<Historycubit,List<MovieDetailsModel>>(
+                                builder: (context, movies) {
+                                  return Text(
+                                    movies.length.toString(),
+                                    style: TextStyle(
+                                      color: ColorPallete.white,
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  );
+                                },
                               ),
-                            ),
-                          ],
+                              Text(
+                                "History",
+                                style: TextStyle(
+                                  color: ColorPallete.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -165,8 +172,9 @@ class _ProfileState extends State<Profile> {
                     ),
                   ],
                 ),
-              ),
+              )),
             ),
+
 
             bottom: TabBar(
               labelStyle: TextStyle(
