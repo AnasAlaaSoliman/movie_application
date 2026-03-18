@@ -45,22 +45,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
               children: [
                 Bounceable(
                   onTap: () {},
+
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    spacing: 20,
                     children: [
-                      Image.asset(AppAssets.player3),
+                      Image.asset(AppAssets.player3, width: 80),
+                      SizedBox(width: 20),
                       CircleAvatar(
-                        radius: 90,
+                        radius: 60,
                         backgroundImage: AssetImage(AppAssets.player1),
                       ),
-                      //SizedBox(height: 10,),
-                      Image.asset(AppAssets.player2),
-
-                      // SizedBox(height: 10,),
+                      SizedBox(width: 20),
+                      Image.asset(AppAssets.player2, width: 80),
                     ],
                   ),
                 ),
+
                 SizedBox(height: 10),
                 Text("Avatar", style: TextStyle(color: ColorPallete.white)),
                 SizedBox(height: 10),
