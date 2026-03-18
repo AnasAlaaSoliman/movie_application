@@ -22,16 +22,13 @@ class MoviesGrid extends StatelessWidget {
       itemBuilder: (context, index) {
         final movie = movies[index];
         return MovieCard(
-<<<<<<< dalia_feature
-          movie: movie,
+          //movie: movie,
           // imagePath: movie['medium_cover_image'],
           // rating: (movie['rating'] ?? 0).toDouble(),
           // movieId: movie['id'],
-=======
           imagePath: movie.mediumCoverImage,
           rating: movie.rating,
           movieId: movie.id, // ← هنا نمرر ID للفيلم
->>>>>>> develop
         );
       },
     );
