@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:movie2_application/core/theme/App_assets.dart';
 import 'package:movie2_application/core/theme/App_strings.dart';
 import 'package:movie2_application/core/theme/color_pallete.dart';
