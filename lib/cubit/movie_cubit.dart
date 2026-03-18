@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bloc/bloc.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/movie_model.dart';

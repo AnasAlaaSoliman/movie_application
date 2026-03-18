@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie2_application/cubit/historyCubit.dart';
+import 'package:movie2_application/models/movie_details_model.dart';
 import 'package:movie2_application/pages/Profile/update_profile_page.dart';
+import 'package:movie2_application/pages/home_screen/widget_home/movie_card.dart';
 import '../../core/theme/App_assets.dart';
 import '../../core/theme/color_pallete.dart';
 import '../../core/theme/image_repository.dart';
+import '../../cubit/watchListCubit.dart';
 import '../../customWidget/custom_button.dart';
-import '../../customWidget/movieCard.dart';
+import '../../models/movie_model.dart';
 import '../auth_screens/login/login_screen.dart';
 
 class Profile extends StatefulWidget {
@@ -40,19 +45,19 @@ class _ProfileState extends State<Profile> {
                     SizedBox(height: 20),
 
                     Row(
-                      spacing: 30,
+                      spacing: 10,
                       children: [
                         Column(
                           children: [
                             CircleAvatar(
-                              radius: 60,
+                              radius: 50,
                               child: Image.asset(AppAssets.player1),
                             ),
 
                             SizedBox(height: 15),
 
                             Text(
-                              "John Safwat",
+                              userName,
                               style: TextStyle(
                                 color: ColorPallete.white,
                                 fontSize: 20,
@@ -63,19 +68,26 @@ class _ProfileState extends State<Profile> {
                         ),
                         Column(
                           children: [
-                            Text(
-                              wishListNo,
-                              style: TextStyle(
-                                color: ColorPallete.white,
-                                fontSize: 36,
-                                fontWeight: FontWeight.w700,
-                              ),
+                            BlocBuilder<
+                              WatchListCubit,
+                              List<MovieDetailsModel>
+                            >(
+                              builder: (context, movies) {
+                                return Text(
+                                  movies.length.toString(),
+                                  style: TextStyle(
+                                    color: ColorPallete.white,
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                );
+                              },
                             ),
                             Text(
                               "Wish List",
                               style: TextStyle(
                                 color: ColorPallete.white,
-                                fontSize: 24,
+                                fontSize: 20,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
@@ -83,19 +95,23 @@ class _ProfileState extends State<Profile> {
                         ),
                         Column(
                           children: [
-                            Text(
-                              historyNo,
-                              style: TextStyle(
-                                color: ColorPallete.white,
-                                fontSize: 36,
-                                fontWeight: FontWeight.w700,
-                              ),
+                            BlocBuilder<Historycubit,List<MovieDetailsModel>>(
+                              builder: (context, movies) {
+                                return Text(
+                                  movies.length.toString(),
+                                  style: TextStyle(
+                                    color: ColorPallete.white,
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                );
+                              },
                             ),
                             Text(
                               "History",
                               style: TextStyle(
                                 color: ColorPallete.white,
-                                fontSize: 24,
+                                fontSize: 20,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
@@ -181,29 +197,70 @@ class _ProfileState extends State<Profile> {
 
         body: TabBarView(
           children: [
-            Container(
-              color: ColorPallete.black,
-              child: Image.asset("assets/images/empty.png"),
-            ),
-            Container(
-              color: ColorPallete.black,
-              child: GridView.builder(
-                itemCount: ImageRepository.historyImage.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 10,
-                  childAspectRatio: 0.5,
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Moviecard(
-                      movieImage: ImageRepository.historyImage[index],
+            BlocBuilder<WatchListCubit, List<MovieDetailsModel>>(
+              builder: (context, movies) {
+                if (movies.isEmpty) {
+                  return Image.asset("assets/images/empty.png");
+                }
+
+                return Container(
+                  color: ColorPallete.black,
+                  child: GridView.builder(
+                    itemCount: movies.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 16,
+                      mainAxisSpacing: 10,
+                      childAspectRatio: 0.5,
                     ),
-                  );
-                },
-              ),
+                    itemBuilder: (context, index) {
+                      final movie = movies[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 8.0,
+                        ),
+                        child: MovieCard(
+                          imagePath: movie.poster,
+                          movieId: movie.id,
+                          rating: movie.rating,
+                        ),
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
+
+            BlocBuilder<Historycubit, List<MovieDetailsModel>>(
+              builder: (context, movies) {
+                if (movies.isEmpty) {
+                  return Image.asset("assets/images/empty.png");
+                }
+                return Container(
+                  color: ColorPallete.black,
+                  child: GridView.builder(
+                    itemCount: movies.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 16,
+                      mainAxisSpacing: 10,
+                      childAspectRatio: 0.5,
+                    ),
+                    itemBuilder: (BuildContext context, int index) {
+                      final movie = movies[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: MovieCard(
+                          imagePath: movie.poster,
+                          movieId: movie.id,
+                          rating: movie.rating,
+                        ),
+                      );
+                    },
+                  ),
+                );
+              },
             ),
           ],
         ),
