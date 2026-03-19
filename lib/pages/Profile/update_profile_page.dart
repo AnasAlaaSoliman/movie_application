@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 
@@ -8,6 +9,8 @@ import '../../core/theme/image_repository.dart';
 import '../../customWidget/custom_button.dart';
 import '../../customWidget/darged_avatar_menu.dart';
 import '../../customWidget/textfield.dart';
+import '../../utils/firebase_auth_utils.dart';
+import '../../utils/firestore_utils.dart';
 import '../../models/user_data_model.dart';
 
 class UpdateProfilePage extends StatefulWidget {
@@ -16,7 +19,6 @@ class UpdateProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<UpdateProfilePage> {
-
   int newAvatarIndex = 0;
 
   late TextEditingController nameController;
@@ -27,37 +29,111 @@ class _ProfilePageState extends State<UpdateProfilePage> {
   @override
   void initState() {
     super.initState();
-
     nameController = TextEditingController();
     phoneController = TextEditingController();
-
     getUserData();
   }
 
   Future<void> getUserData() async {
+    final user = FirebaseAuth.instance.currentUser;
 
-    var doc = await FirebaseFirestore.instance
-        .collection(UserDataModel.collectionName)
-        .doc("1")
-        .get();
+    if (user == null) return;
 
-    currentUser = UserDataModel.fromFireStore(doc.data()!);
+    currentUser =
+    await FirestoreUtils.getUserFromFirestore(user.uid);
 
-    nameController.text = currentUser!.userName;
-    phoneController.text = currentUser!.phoneNumber;
+    if (currentUser != null) {
+      nameController.text = currentUser!.userName;
+      phoneController.text = currentUser!.phoneNumber;
+      newAvatarIndex = currentUser!.avatarIndex;
+    }
 
     setState(() {});
   }
 
   Future<void> updateUserData() async {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) return;
 
     currentUser!.userName = nameController.text;
     currentUser!.phoneNumber = phoneController.text;
+    currentUser!.avatarIndex = newAvatarIndex;
 
     await FirebaseFirestore.instance
         .collection(UserDataModel.collectionName)
-        .doc(currentUser!.userId)
+        .doc(user.uid)
         .update(currentUser!.toFireStore());
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Updated successfully ✅")),
+    );
+  }
+
+  Future<void> deleteAccount() async {
+    try {
+      await FirebaseAuthUtils.deleteCurrentUser();
+      Navigator.pushReplacementNamed(context, RouteName.login);
+    } catch (e) {
+      if (e.toString().contains("REQUIRES_RELOGIN")) {
+        showReAuthDialog();
+      }
+    }
+  }
+
+  void showReAuthDialog() {
+    TextEditingController emailController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text("Re-login required"),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(controller: emailController),
+            TextField(controller: passwordController, obscureText: true),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () async {
+              await FirebaseAuthUtils.reAuthenticate(
+                emailController.text,
+                passwordController.text,
+              );
+              Navigator.pop(context);
+              deleteAccount();
+            },
+            child: Text("Confirm"),
+          )
+        ],
+      ),
+    );
+  }
+
+  void confirmDelete() {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text("Delete Account"),
+        content: Text("Are you sure? This cannot be undone."),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text("Cancel"),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              deleteAccount();
+            },
+            child: Text("Delete"),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -75,26 +151,17 @@ class _ProfilePageState extends State<UpdateProfilePage> {
         backgroundColor: Colors.transparent,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: Icon(Icons.arrow_back, size: 25),
+          icon: Icon(Icons.arrow_back),
         ),
         iconTheme: IconThemeData(color: ColorPallete.yellow),
         centerTitle: true,
-        title: Text(
-          'Update Profile',
-          style: TextStyle(
-            color: ColorPallete.yellow,
-            fontSize: 19,
-            fontWeight: FontWeight.w400,
-          ),
-        ),
+        title: Text("Update Profile",
+            style: TextStyle(color: ColorPallete.yellow)),
       ),
-
-      body: SingleChildScrollView(child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-
             Bounceable(
               onTap: () async {
                 final int? selectedIndex =
@@ -111,53 +178,47 @@ class _ProfilePageState extends State<UpdateProfilePage> {
               },
               child: CircleAvatar(
                 radius: 80,
-                child: Image.asset(
+                backgroundColor: Colors.transparent,
+                backgroundImage: AssetImage(
                   ImageRepository.avatars[newAvatarIndex],
                 ),
               ),
             ),
-
-            SizedBox(height: 35),
-
-            textfield.name(controller: nameController,false, Icons.person),
-
-            SizedBox(height: 18),
-
-            textfield.name(controller: phoneController,false, Icons.phone),
-
             SizedBox(height: 30),
-
-            InkWell(
-              child: Text(
-                "Reset Password",
-                style: TextStyle(
-                  color: ColorPallete.white,
-                  fontSize: 20,
+            textfield.name(controller: nameController, false, Icons.person),
+            SizedBox(height: 15),
+            textfield.name(controller: phoneController, false, Icons.phone),
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, RouteName.forget_password);
+                  },
+                  child: Text(
+                    "Reset Password",
+                    style: TextStyle(color: ColorPallete.white),
+                  ),
                 ),
               ),
-              onTap: () {
-                Navigator.pushNamed(context, RouteName.forget_password);
-              },
             ),
           ],
         ),
-      )),
-
+      ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-
             CustomButton(
-              onPressed: () {},
+              onPressed: confirmDelete,
               text: "Delete Account",
               textColor: ColorPallete.white,
               buttonColor: ColorPallete.red,
             ),
-
-            SizedBox(height: 15),
-
+            SizedBox(height: 10),
             CustomButton(
               onPressed: updateUserData,
               text: "Update Data",

@@ -4,12 +4,14 @@ class UserDataModel {
   String userName;
   String userEmail;
   String phoneNumber;
+  int avatarIndex;
 
   UserDataModel({
     this.userId,
     required this.userName,
     required this.userEmail,
     required this.phoneNumber,
+    required this.avatarIndex,
   });
 
   factory UserDataModel.fromFireStore(Map<String, dynamic> json) {
@@ -18,6 +20,7 @@ class UserDataModel {
       userName: json['userName'],
       userEmail: json['userEmail'],
       phoneNumber: json['phoneNumber'],
+      avatarIndex: json['avatarIndex'] ?? 0,
     );
   }
 
@@ -27,6 +30,7 @@ class UserDataModel {
       'userName': userName,
       'userEmail': userEmail,
       'phoneNumber': phoneNumber,
+      'avatarIndex': avatarIndex,
     };
   }
 }

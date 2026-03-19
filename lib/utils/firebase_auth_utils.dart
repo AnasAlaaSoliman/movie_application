@@ -9,6 +9,7 @@ class FirebaseAuthUtils {
     String email,
     String password,
     String phoneNumber,
+
   ) async {
     try {
       final credential = await FirebaseAuth.instance
@@ -18,6 +19,7 @@ class FirebaseAuthUtils {
         userName: name,
         userEmail: email,
         phoneNumber: phoneNumber,
+        avatarIndex: 0,
       );
       FirestoreUtils.addUser(user);
       return Future.value(user);
@@ -55,5 +57,42 @@ class FirebaseAuthUtils {
     await FirebaseAuth.instance.sendPasswordResetEmail(
       email: userEmail,
     );
+  }
+
+
+  static Future<void> deleteCurrentUser() async {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) throw Exception("No user logged in");
+
+    try {
+      // 1. احذف من Firestore
+      await FirestoreUtils.deleteUser(user.uid);
+
+      // 2. احذف من Auth
+      await user.delete();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'requires-recent-login') {
+        throw Exception("REQUIRES_RELOGIN");
+      } else {
+        throw Exception(e.message);
+      }
+    }
+  }
+
+  static Future<void> reAuthenticate(
+      String email,
+      String password,
+      ) async {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) return;
+
+    final cred = EmailAuthProvider.credential(
+      email: email,
+      password: password,
+    );
+
+    await user.reauthenticateWithCredential(cred);
   }
 }

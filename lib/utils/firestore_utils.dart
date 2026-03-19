@@ -24,4 +24,9 @@ abstract class FirestoreUtils {
     var doc = await getCollectionReferenceForUser().doc(userId).get();
     return doc.data();
   }
+
+  static Future<void> deleteUser(String userId) async {
+    await getCollectionReferenceForUser().doc(userId).delete();
+  }
 }
+

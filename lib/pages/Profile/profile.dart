@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie2_application/cubit/historyCubit.dart';
@@ -8,6 +9,8 @@ import '../../core/theme/App_assets.dart';
 import '../../core/theme/color_pallete.dart';
 import '../../cubit/watchListCubit.dart';
 import '../../customWidget/custom_button.dart';
+import '../../utils/firestore_utils.dart';
+import '../../core/theme/image_repository.dart';
 import '../auth_screens/login/login_screen.dart';
 
 class Profile extends StatefulWidget {
@@ -16,11 +19,30 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  String userName = "John Safwat";
+  String userName = "";
+  int avatarIndex = 0;
 
-  String wishListNo = "12";
+  Future<void> getUserData() async {
+    final user = FirebaseAuth.instance.currentUser;
 
-  String historyNo = "10";
+    if (user == null) return;
+
+    final userData =
+    await FirestoreUtils.getUserFromFirestore(user.uid);
+
+    if (userData != null) {
+      setState(() {
+        userName = userData.userName;
+        avatarIndex = userData.avatarIndex;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUserData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,30 +58,33 @@ class _ProfileState extends State<Profile> {
             automaticallyImplyLeading: false,
             backgroundColor: ColorPallete.gray,
             elevation: 0,
-
             flexibleSpace: SafeArea(
               child: SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding:
+                  const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     children: [
                       SizedBox(height: 20),
 
                       Row(
-                        spacing: 10,
                         children: [
                           Expanded(
                             child: Column(
                               children: [
                                 CircleAvatar(
                                   radius: 50,
-                                  child: Image.asset(AppAssets.player1),
+                                  backgroundColor: Colors.transparent,
+                                  backgroundImage: AssetImage(
+                                    ImageRepository
+                                        .avatars[avatarIndex],
+                                  ),
                                 ),
-
                                 SizedBox(height: 15),
-
                                 Text(
-                                  userName,
+                                  userName.isEmpty
+                                      ? "Loading..."
+                                      : userName,
                                   style: TextStyle(
                                     color: ColorPallete.white,
                                     fontSize: 20,
@@ -69,13 +94,13 @@ class _ProfileState extends State<Profile> {
                               ],
                             ),
                           ),
+
                           Expanded(
                             child: Column(
                               children: [
                                 BlocBuilder<
-                                  WatchListCubit,
-                                  List<MovieDetailsModel>
-                                >(
+                                    WatchListCubit,
+                                    List<MovieDetailsModel>>(
                                   builder: (context, movies) {
                                     return Text(
                                       movies.length.toString(),
@@ -98,13 +123,13 @@ class _ProfileState extends State<Profile> {
                               ],
                             ),
                           ),
+
                           Expanded(
                             child: Column(
                               children: [
                                 BlocBuilder<
-                                  Historycubit,
-                                  List<MovieDetailsModel>
-                                >(
+                                    Historycubit,
+                                    List<MovieDetailsModel>>(
                                   builder: (context, movies) {
                                     return Text(
                                       movies.length.toString(),
@@ -133,7 +158,6 @@ class _ProfileState extends State<Profile> {
                       SizedBox(height: 20),
 
                       Row(
-                        spacing: 10,
                         children: [
                           Expanded(
                             flex: 2,
@@ -142,9 +166,12 @@ class _ProfileState extends State<Profile> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => UpdateProfilePage(),
+                                    builder: (context) =>
+                                        UpdateProfilePage(),
                                   ),
-                                );
+                                ).then((_) {
+                                  getUserData(); // 🔥 refresh
+                                });
                               },
                               text: "Edit Profile",
                               textColor: ColorPallete.black,
@@ -152,17 +179,21 @@ class _ProfileState extends State<Profile> {
                             ),
                           ),
 
-                          SizedBox(height: 15),
+                          SizedBox(width: 10),
 
                           Expanded(
                             flex: 1,
                             child: CustomButton(
-                              onPressed: () {
-                                Navigator.pushReplacement(
+                              onPressed: () async {
+                                await FirebaseAuth.instance.signOut();
+
+                                Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => LoginScreen(),
+                                    builder: (context) =>
+                                        LoginScreen(),
                                   ),
+                                      (route) => false,
                                 );
                               },
                               text: "Exit",
@@ -181,25 +212,29 @@ class _ProfileState extends State<Profile> {
 
             bottom: TabBar(
               labelStyle: TextStyle(
-                color: ColorPallete.white,
                 fontSize: 20,
                 fontWeight: FontWeight.w400,
               ),
               labelColor: ColorPallete.white,
               dividerColor: Colors.transparent,
               indicatorColor: ColorPallete.yellow,
-              indicatorSize: TabBarIndicatorSize.tab,
               indicatorWeight: 3,
               tabs: [
                 Tab(
                   height: 85,
                   text: "Watch List",
-                  icon: Image.asset('assets/images/Group 20.png', scale: 2.5),
+                  icon: Image.asset(
+                    'assets/images/Group 20.png',
+                    scale: 2.5,
+                  ),
                 ),
                 Tab(
                   height: 85,
                   text: "History",
-                  icon: Image.asset('assets/images/folderIcon.png', scale: 2.5),
+                  icon: Image.asset(
+                    'assets/images/folderIcon.png',
+                    scale: 2.5,
+                  ),
                 ),
               ],
             ),
@@ -208,7 +243,8 @@ class _ProfileState extends State<Profile> {
 
         body: TabBarView(
           children: [
-            BlocBuilder<WatchListCubit, List<MovieDetailsModel>>(
+            BlocBuilder<WatchListCubit,
+                List<MovieDetailsModel>>(
               builder: (context, movies) {
                 if (movies.isEmpty) {
                   return Image.asset("assets/images/empty.png");
@@ -218,7 +254,8 @@ class _ProfileState extends State<Profile> {
                   color: ColorPallete.black,
                   child: GridView.builder(
                     itemCount: movies.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                    SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
                       crossAxisSpacing: 16,
                       mainAxisSpacing: 10,
@@ -227,10 +264,7 @@ class _ProfileState extends State<Profile> {
                     itemBuilder: (context, index) {
                       final movie = movies[index];
                       return Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 8.0,
-                        ),
+                        padding: const EdgeInsets.all(8.0),
                         child: MovieCard(
                           imagePath: movie.poster,
                           movieId: movie.id,
@@ -243,25 +277,28 @@ class _ProfileState extends State<Profile> {
               },
             ),
 
-            BlocBuilder<Historycubit, List<MovieDetailsModel>>(
+            BlocBuilder<Historycubit,
+                List<MovieDetailsModel>>(
               builder: (context, movies) {
                 if (movies.isEmpty) {
                   return Image.asset("assets/images/empty.png");
                 }
+
                 return Container(
                   color: ColorPallete.black,
                   child: GridView.builder(
                     itemCount: movies.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                    SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
                       crossAxisSpacing: 16,
                       mainAxisSpacing: 10,
                       childAspectRatio: 0.5,
                     ),
-                    itemBuilder: (BuildContext context, int index) {
+                    itemBuilder: (context, index) {
                       final movie = movies[index];
                       return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: MovieCard(
                           imagePath: movie.poster,
                           movieId: movie.id,
